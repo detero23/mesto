@@ -1,5 +1,6 @@
 .element__heart-icon {
   max-width: 22px;
+  object-fit: contain;
 }
 
 .element__heart-icon:hover {
