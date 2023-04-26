@@ -1,4 +1,5 @@
 @import url(../vendor/normalize.css);
+@import url(../vendor/fonts/inter.css);
 
 @import url(../blocks/page/page.css);
 
@@ -11,3 +12,6 @@
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
 @import url(../blocks/element/__image/element__image.css);
+@import url(../blocks/element/__white-space/element__white-space.css);
+@import url(../blocks/element/__name/element__name.css);
+@import url(../blocks/element/__heart-icon/element__heart-icon.css);

@@ -2,5 +2,6 @@
   max-width: 100%;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(282px, 1fr));
+  /* grid-template-rows: repeat(auto-fill, minmax(360px, 1fr)); */
   gap: 20px 17px;
 }
