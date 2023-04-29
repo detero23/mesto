@@ -7,3 +7,10 @@
   color: #545454;
   cursor: default;
 }
+
+@media screen and (max-width: 1000px) {
+  .footer {
+    font-size: 14px;
+    line-height: 17px;
+  }
+ }

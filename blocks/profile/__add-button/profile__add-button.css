@@ -1,8 +1,20 @@
 .profile__add-button {
   display: block;
   margin-left: auto;
+  box-sizing: border-box;
+  min-height: 50px;
+  padding: 13px 63px;
+  border: 1px solid #fff;
+  transform: translateY(-4px);
 }
 
 .profile__add-button:hover {
   opacity: .6;
+}
+
+@media screen and (max-width: 1000px) {
+  .profile__add-button {
+    padding: 13px 129px;
+    margin: 0 auto;
+  }
 }
