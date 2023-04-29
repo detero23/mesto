@@ -11,6 +11,10 @@
   color: #FFFFFF;
 }
 
+.popup__save-button:hover {
+  opacity: .8;
+}
+
 @media screen and (max-width: 1000px) {
   .popup__save-button {
     margin: 45px 22px 25px;
