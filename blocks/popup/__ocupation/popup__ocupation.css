@@ -1,0 +1,20 @@
+.popup__ocupation {
+  padding: 0;
+  margin: 30px 36px 0;
+  width: calc(100% - 72px);
+  height: 27px;
+  border: none;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+
+@media screen and (max-width: 1000px) {
+  .popup__ocupation {
+    margin: 29px 22px 0;
+    width: calc(100% - 44px);
+    height: 27px;
+  }
+}

@@ -5,6 +5,9 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
+  /* text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden; */
 }
 
 @media screen and (max-width: 1000px) {
