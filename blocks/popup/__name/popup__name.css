@@ -15,6 +15,5 @@
   .popup__name {
     margin: 72px 22px 0;
     width: calc(100% - 44px);
-    height: 27px;
   }
 }

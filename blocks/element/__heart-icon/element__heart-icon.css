@@ -5,4 +5,5 @@
 
 .element__heart-icon:hover {
   opacity: .5;
+  cursor: pointer;
 }

@@ -13,6 +13,7 @@
 
 .popup__save-button:hover {
   opacity: .8;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1000px) {
