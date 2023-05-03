@@ -20,10 +20,12 @@
       <section class="profile">
         <img src="./images/avatar.png" alt="Иван Крузенштерн" class="profile__avatar">
         <div class="profile__info">
-          <h2 class="profile__name">Иван Крузенштерн<img src="./images/edit-button.svg" alt="Кнопка редактирования" class="profile__edit-button"></h2>
+          <h2 class="profile__name">Иван Крузенштерн
+            <button type="button" class="profile__edit-button"></button>
+          </h2>
           <p class="profile__ocupation">Российский мореплаватель, адмирал</p>
         </div>
-        <img src="./images/add-button.svg" alt="Кнопка добавления" class="profile__add-button">
+        <button type="button" class="profile__add-button"></button>
       </section>
 
       <section class="elements">
@@ -31,62 +33,63 @@
           <img src="./images/element-baikal.jpg" alt="Фото Байкала" class="element__image">
           <div class="element__white-space">
             <h2 class="element__name">Байкал</h2>
-            <img src="./images/heart-disabled.svg" alt="Иконка сердца" class="element__heart-icon">
+            <button type="button" class="element__heart-icon"></button>
           </div>
         </div>
         <div class="element">
           <img src="./images/element-karelia.jpg" alt="Фото Карелия" class="element__image">
           <div class="element__white-space">
             <h2 class="element__name">Карелия</h2>
-            <img src="./images/heart-disabled.svg" alt="Иконка сердца" class="element__heart-icon">
+            <button type="button" class="element__heart-icon"></button>
           </div>
         </div>
         <div class="element">
           <img src="./images/element-chukotka.jpg" alt="Фото Чукотка" class="element__image">
           <div class="element__white-space">
             <h2 class="element__name">Чукотка</h2>
-            <img src="./images/heart-disabled.svg" alt="Иконка сердца" class="element__heart-icon">
+            <button type="button" class="element__heart-icon"></button>
           </div>
         </div>
         <div class="element">
           <img src="./images/element-altai.jpg" alt="Фото Алтай" class="element__image">
           <div class="element__white-space">
             <h2 class="element__name">Алтай</h2>
-            <img src="./images/heart-disabled.svg" alt="Иконка сердца" class="element__heart-icon">
+            <button type="button" class="element__heart-icon"></button>
           </div>
         </div>
         <div class="element">
           <img src="./images/element-sakhalin.jpg" alt="Фото Сахалин" class="element__image">
           <div class="element__white-space">
             <h2 class="element__name">Сахалин</h2>
-            <img src="./images/heart-disabled.svg" alt="Иконка сердца" class="element__heart-icon">
+            <button type="button" class="element__heart-icon"></button>
           </div>
         </div>
         <div class="element">
           <img src="./images/element-kamchatka.jpg" alt="Фото Камчатка" class="element__image">
           <div class="element__white-space">
             <h2 class="element__name">Камчатка</h2>
-            <img src="./images/heart-disabled.svg" alt="Иконка сердца" class="element__heart-icon">
+            <button type="button" class="element__heart-icon"></button>
           </div>
         </div>
       </section>
 
-      <section class="popup">
-        <form class="popup__container">
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <input type="text" class="popup__name" placeholder="Иван Крузенштерн">
-          <input type="text" class="popup__ocupation" placeholder="Российский мореплаватель, адмирал">
-          <input type="submit" class="popup__save-button" value="Сохранить">
-          <img src="./images/close-button.svg" alt="Кнопка закрытия" class="popup__close-button">
-        </form>
-      </section>
     </main>
 
     <footer class="footer">
       <small class="footer__copyright">&COPY; 2024 Mesto Russia</small>
     </footer>
 
+    <section class="popup">
+      <form class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <input type="text" class="popup__input popup__input_type_name" placeholder="Как вас зовут?">
+        <input type="text" class="popup__input popup__input_type_job" placeholder="Чем вы занимаетесь?">
+        <input type="submit" class="popup__save-button" value="Сохранить">
+        <button type="button" class="popup__close-button"></button>
+      </form>
+    </section>
+
   </div>
-  <script src="./scripts/script.js"></script>
+  <script src="./scripts/index.js"></script>
 </body>
 </html>

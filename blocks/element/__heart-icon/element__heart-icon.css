@@ -1,6 +1,14 @@
 .element__heart-icon {
-  max-width: 22px;
-  object-fit: contain;
+  background-image: url(../../../images/heart-disabled.svg);
+  width: 22px;
+  aspect-ratio: 1;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: unset;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .element__heart-icon:hover {
