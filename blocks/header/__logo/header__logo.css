@@ -2,11 +2,12 @@
   max-width: 142px;
   object-fit: contain;
   object-position: top left;
+  padding: 0 0 40px;
 }
 
 @media screen and (max-width: 1000px) {
   .header__logo {
     max-width: 103.74px;
-    padding-left: 8px;
+    padding:  0 0 29px 27px;
   }
  }
