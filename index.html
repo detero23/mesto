@@ -78,13 +78,24 @@
       <small class="footer__copyright">&COPY; 2024 Mesto Russia</small>
     </footer>
 
-    <section class="popup">
+    <section class="popup popup_type_edit" id="popupEditInfo">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form" name="popupForm">
-          <input type="text" class="popup__input popup__input_type_name" placeholder="Как вас зовут?" name="nameInput">
-          <input type="text" class="popup__input popup__input_type_job" placeholder="Чем вы занимаетесь?" name="jobInput">
+          <input type="text" class="popup__input popup__input_type_info-name" placeholder="Как вас зовут?" name="inputEditName">
+          <input type="text" class="popup__input popup__input_type_info-job" placeholder="Чем вы занимаетесь?" name="inputEditJob">
           <input type="submit" class="popup__save-button" value="Сохранить" name="saveButton">
+        </form>
+        <button type="button" class="popup__close-button"></button>
+      </div>
+    </section>
+    <section class="popup popup_type_add" id="popupAddCard">
+      <div class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form" name="popupForm">
+          <input type="text" class="popup__input popup__input_type_img-name" placeholder="Название" name="inputAddName">
+          <input type="text" class="popup__input popup__input_type_img-ref" placeholder="Ссылка на картинку" name="inputAddRef">
+          <input type="submit" class="popup__save-button" value="Создать" name="saveButton">
         </form>
         <button type="button" class="popup__close-button"></button>
       </div>
