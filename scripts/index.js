@@ -15,6 +15,9 @@ const inputAddName= popupAdd.querySelector('.popup__input_type_img-name');
 const inputAddRef = popupAdd.querySelector('.popup__input_type_img-ref');
 const buttonAddClose = popupAdd.querySelector('.popup__close-button');
 
+const cardsHolder = document.querySelector('.elements');
+const templateCard = document.querySelector('#templateCard').content;
+
 
 function hidePopup(popup) {
   popup.classList.remove('popup_opened');
@@ -26,14 +29,33 @@ function showPopup(popup) {
   console.log(`Попап ${popup.id} отрисован`);
 }
 
-function formSubmit (evt,popup) {
+function formSubmit (evt,form) {
   evt.preventDefault();
-  hidePopup(popup);
-  console.log(`Отправка формы попапа ${popup.id}`)
+  console.log(`Отправка формы ${form.name}`)
 }
 
 function updateInputFromText (input,text) {input.value = text.textContent;}
 function updateTextFromInput (text,input) {text.textContent = input.value;}
+function clearInput (input) {input.value = '';}
+
+function toggleLike (el) {
+  el.classList.toggle('element__heart-icon_active');
+}
+
+function addNewCard(name,link) {
+  if (name&&link) {
+    const newCard = templateCard.querySelector('.element').cloneNode(true);
+    newCard.querySelector('.element__image').src = link;
+    newCard.querySelector('.element__name').textContent = name;
+    newCard.querySelector('.element__heart-icon').addEventListener('click',(evt) => toggleLike(evt.target));
+    cardsHolder.append(newCard);
+    console.log(`Добавлена карточка "${name}"`);
+  }
+  else {
+    console.log(`Имя карточки или ссылка пустые`);
+  }
+}
+
 
 
 buttonEdit.addEventListener('click', () => {
@@ -45,19 +67,24 @@ buttonEditClose.addEventListener('click', () => {
   hidePopup(popupEdit);
 });
 popupEditForm.addEventListener('submit',(evt) => {
-  formSubmit(evt,popupEdit);
+  formSubmit(evt,popupEditForm);
   updateTextFromInput(textInfoName,inputEditName);
   updateTextFromInput(textInfoJob,inputEditJob);
+  hidePopup(popupEdit);
 });
 
 buttonAdd.addEventListener('click', () => {
   showPopup(popupAdd);
+  clearInput(inputAddName);
+  clearInput(inputAddRef);
 });
 buttonAddClose.addEventListener('click', () => {
   hidePopup(popupAdd);
 });
 popupAddForm.addEventListener('submit',(evt) => {
-  formSubmit(evt,popupAdd);
+  formSubmit(evt,popupAddForm);
+  addNewCard(inputAddName.value, inputAddRef.value);
+  hidePopup(popupAdd);
 });
 
 
@@ -87,3 +114,7 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
+
+initialCards.forEach(card => {
+  addNewCard(card.name, card.link);
+});

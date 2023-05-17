@@ -23,6 +23,7 @@
 @import url(../blocks/element/__white-space/element__white-space.css);
 @import url(../blocks/element/__name/element__name.css);
 @import url(../blocks/element/__heart-icon/element__heart-icon.css);
+@import url(../blocks/element/__heart-icon/_active/element__heart-icon_active.css);
 
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/_type/popup_type_add.css);
