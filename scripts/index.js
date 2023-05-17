@@ -40,6 +40,12 @@ function clearInput (input) {input.value = '';}
 
 function toggleLike (el) {
   el.classList.toggle('element__heart-icon_active');
+  console.log(`Поставлен/убран лайк у карточки "${el.closest('.element').querySelector('.element__name').textContent}"`)
+}
+
+function deleteCard(card) {
+  card.remove();
+  console.log(`Удалена карточка "${card.querySelector('.element__name').textContent}"`)
 }
 
 function addNewCard(name,link) {
@@ -48,6 +54,7 @@ function addNewCard(name,link) {
     newCard.querySelector('.element__image').src = link;
     newCard.querySelector('.element__name').textContent = name;
     newCard.querySelector('.element__heart-icon').addEventListener('click',(evt) => toggleLike(evt.target));
+    newCard.querySelector('.element__recycle').addEventListener('click',(evt) => deleteCard(evt.target.closest('.element')));
     cardsHolder.append(newCard);
     console.log(`Добавлена карточка "${name}"`);
   }
