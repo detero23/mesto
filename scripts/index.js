@@ -15,6 +15,11 @@ const inputAddName= popupAdd.querySelector('.popup__input_type_img-name');
 const inputAddRef = popupAdd.querySelector('.popup__input_type_img-ref');
 const buttonAddClose = popupAdd.querySelector('.popup__close-button');
 
+const popupImage = document.querySelector('.popup_type_image');
+const buttonImageClose = popupImage.querySelector('.popup__close-button');
+const sourceFullImage = popupImage.querySelector('.popup__full-image');
+const captionFullImage = popupImage.querySelector('.popup__full-image-caption');
+
 const cardsHolder = document.querySelector('.elements');
 const templateCard = document.querySelector('#templateCard').content;
 
@@ -37,6 +42,10 @@ function formSubmit (evt,form) {
 function updateInputFromText (input,text) {input.value = text.textContent;}
 function updateTextFromInput (text,input) {text.textContent = input.value;}
 function clearInput (input) {input.value = '';}
+function updateFullImageSrc (link) {sourceFullImage.src = link;}
+function updateFullImageCaption (text) {captionFullImage.textContent = text;}
+function clearFullImageSrc () {sourceFullImage.src = '';}
+function clearFullImageCaption () {captionFullImage.textContent = '';}
 
 function toggleLike (el) {
   el.classList.toggle('element__heart-icon_active');
@@ -51,11 +60,18 @@ function deleteCard(card) {
 function addNewCard(name,link) {
   if (name&&link) {
     const newCard = templateCard.querySelector('.element').cloneNode(true);
-    newCard.querySelector('.element__image').src = link;
+    const newCardImage = newCard.querySelector('.element__image');
+    newCardImage.src = link;
+    newCardImage.alt = `Фото ${name}`;
+    newCardImage.addEventListener('click',() => {
+      updateFullImageSrc(link);
+      updateFullImageCaption(name);
+      showPopup(popupImage)
+    });
     newCard.querySelector('.element__name').textContent = name;
     newCard.querySelector('.element__heart-icon').addEventListener('click',(evt) => toggleLike(evt.target));
     newCard.querySelector('.element__recycle').addEventListener('click',(evt) => deleteCard(evt.target.closest('.element')));
-    cardsHolder.append(newCard);
+    cardsHolder.prepend(newCard);
     console.log(`Добавлена карточка "${name}"`);
   }
   else {
@@ -94,6 +110,11 @@ popupAddForm.addEventListener('submit',(evt) => {
   hidePopup(popupAdd);
 });
 
+buttonImageClose.addEventListener('click', () => {
+  hidePopup(popupImage);
+  clearFullImageSrc();
+  clearFullImageCaption();
+});
 
 const initialCards = [
   {

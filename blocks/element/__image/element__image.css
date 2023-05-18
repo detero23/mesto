@@ -5,3 +5,8 @@
   object-position: center;
   display: block;
 }
+
+.element__image:hover {
+  /* opacity: .5; */
+  cursor: pointer;
+}
