@@ -28,10 +28,10 @@
         <button type="button" class="profile__add-button"></button>
       </section>
 
-      <section class="elements">
+      <section class="elements" aria-label="Карточки">
         <template id="templateCard">
           <div class="element">
-            <img src="Заглушка" alt="Фото" class="element__image">
+            <img src="#" alt="Фото" class="element__image">
             <div class="element__white-space">
               <h2 class="element__name"></h2>
               <button type="button" class="element__heart-icon"></button>
@@ -61,21 +61,22 @@
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form" name="popupAddForm">
-          <input type="text" class="popup__input popup__input_type_img-name" placeholder="Название" name="inputAddName">
-          <input type="text" class="popup__input popup__input_type_img-ref" placeholder="Ссылка на картинку" name="inputAddRef">
+          <input type="text" class="popup__input popup__input_type_img-name" placeholder="Название" name="inputAddName" required>
+          <input type="url" class="popup__input popup__input_type_img-ref" placeholder="Ссылка на картинку" name="inputAddRef" required>
           <input type="submit" class="popup__save-button" value="Создать" name="saveButton">
         </form>
         <button type="button" class="popup__close-button"></button>
       </div>
     </section>
-    <section class="popup popup_type_image" id="popupImage">
+    <section class="popup popup_type_image" id="popupImage" aria-label="Фулскрин">
       <figure class="popup__full-image-container">
-        <img class="popup__full-image" src="Заглушка" alt="Фото">
+        <img class="popup__full-image" src="#" alt="Фото">
         <figcaption class="popup__full-image-caption"></figcaption>
         <button type="button" class="popup__close-button"></button>
       </figure>
     </section>
   </div>
+  <script src="./scripts/cards.js"></script>
   <script src="./scripts/index.js"></script>
 </body>
 
