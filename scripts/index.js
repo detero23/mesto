@@ -26,17 +26,17 @@ const templateCard = document.querySelector('#templateCard').content;
 
 function hidePopup(popup) {
   popup.classList.remove('popup_opened');
-  console.log(`Попап ${popup.id} спрятан`);
+  // console.log(`Попап ${popup.id} спрятан`);
 }
 
 function showPopup(popup) {
   popup.classList.add('popup_opened');
-  console.log(`Попап ${popup.id} отрисован`);
+  // console.log(`Попап ${popup.id} отрисован`);
 }
 
 function formSubmit (evt,form) {
   evt.preventDefault();
-  console.log(`Отправка формы ${form.name}`)
+  // console.log(`Отправка формы ${form.name}`)
 }
 
 function updateInputFromText (input,text) {input.value = text.textContent;}
@@ -49,12 +49,12 @@ function clearFullImageCaption () {captionFullImage.textContent = '';}
 
 function toggleLike (el) {
   el.classList.toggle('element__heart-icon_active');
-  console.log(`Поставлен/убран лайк у карточки "${el.closest('.element').querySelector('.element__name').textContent}"`)
+  // console.log(`Поставлен/убран лайк у карточки "${el.closest('.element').querySelector('.element__name').textContent}"`)
 }
 
 function deleteCard(card) {
   card.remove();
-  console.log(`Удалена карточка "${card.querySelector('.element__name').textContent}"`)
+  // console.log(`Удалена карточка "${card.querySelector('.element__name').textContent}"`)
 }
 
 function addNewCard(name,link) {
@@ -72,11 +72,11 @@ function addNewCard(name,link) {
     newCard.querySelector('.element__heart-icon').addEventListener('click',(evt) => toggleLike(evt.target));
     newCard.querySelector('.element__recycle').addEventListener('click',(evt) => deleteCard(evt.target.closest('.element')));
     cardsHolder.prepend(newCard);
-    console.log(`Добавлена карточка "${name}"`);
+    // console.log(`Добавлена карточка "${name}"`);
   }
-  else {
-    console.log(`Имя карточки или ссылка пустые`);
-  }
+  // else {
+  //   console.log(`Имя карточки или ссылка пустые`);
+  // }
 }
 
 
@@ -112,8 +112,6 @@ popupAddForm.addEventListener('submit',(evt) => {
 
 buttonImageClose.addEventListener('click', () => {
   hidePopup(popupImage);
-  clearFullImageSrc();
-  clearFullImageCaption();
 });
 
 const initialCards = [
