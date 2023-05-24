@@ -49,9 +49,11 @@
     <section class="popup popup_type_edit" id="popupEdit">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form" name="popupEditForm">
-          <input type="text" class="popup__input popup__input_type_info-name" placeholder="Как вас зовут?" name="inputEditName">
-          <input type="text" class="popup__input popup__input_type_info-job" placeholder="Чем вы занимаетесь?" name="inputEditJob">
+        <form class="popup__form" name="popupEditForm" novalidate>
+          <input type="text" class="popup__input popup__input_type_info-name" placeholder="Имя" id="inputEditName" name="inputEditName" minlength="2" maxlength="40" required>
+          <span class="popup__input-error popup__form_error_inputEditName"></span>
+          <input type="text" class="popup__input popup__input_type_info-job" placeholder="О себе" id="inputEditJob" name="inputEditJob" minlength="2" maxlength="200" required>
+          <span class="popup__input-error popup__form_error_inputEditJob"></span>
           <input type="submit" class="popup__save-button" value="Сохранить" name="saveButton">
         </form>
         <button type="button" class="popup__close-button"></button>
@@ -60,9 +62,11 @@
     <section class="popup popup_type_add" id="popupAdd">
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
-        <form class="popup__form" name="popupAddForm">
-          <input type="text" class="popup__input popup__input_type_img-name" placeholder="Название" name="inputAddName" required>
-          <input type="url" class="popup__input popup__input_type_img-ref" placeholder="Ссылка на картинку" name="inputAddRef" required>
+        <form class="popup__form" name="popupAddForm" novalidate>
+          <input type="text" class="popup__input popup__input_type_img-name" placeholder="Название" id="inputAddName" name="inputAddName" minlength="2" maxlength="30" required>
+          <span class="popup__input-error popup__form_error_inputAddName"></span>
+          <input type="url" class="popup__input popup__input_type_img-ref" placeholder="Ссылка на картинку" id="inputAddRef" name="inputAddRef" required>
+          <span class="popup__input-error popup__form_error_inputAddRef"></span>
           <input type="submit" class="popup__save-button" value="Создать" name="saveButton">
         </form>
         <button type="button" class="popup__close-button"></button>

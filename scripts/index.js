@@ -23,6 +23,85 @@ const captionFullImage = popupImage.querySelector(".popup__full-image-caption");
 const cardsHolder = document.querySelector(".elements");
 const templateCard = document.querySelector("#templateCard").content;
 
+
+
+
+function showInputError(form, input, message) {
+  const error = form.querySelector(`.popup__form_error_${input.id}`);
+
+  input.classList.add('popup__form_type_error');
+  error.textContent = message;
+  error.classList.add('popup__input-error_active');
+};
+
+function hideInputError(form, input) {
+  const error = form.querySelector(`.popup__form_error_${input.id}`);
+
+  input.classList.remove('popup__form_type_error');
+  error.classList.remove('popup__input-error_active');
+  error.textContent = '';
+};
+
+
+function isValid(form, input) {
+  if (!input.validity.valid) {
+    showInputError(form, input, input.validationMessage);
+  } else {
+    hideInputError(form, input);
+  }
+};
+
+
+function setEventListeners(form) {
+  const inputs = Array.from(form.querySelectorAll('.popup__input'));
+  const button = form.querySelector('.popup__save-button');
+
+  toggleButton(inputs, button);
+  inputs.forEach((input) => {
+    input.addEventListener('input', () => {
+      isValid(form, input);
+      toggleButton(inputs, button);
+    });
+  });
+};
+
+function enableValidation() {
+  const forms = Array.from(document.querySelectorAll('.popup__form'));
+
+  forms.forEach((form) => {
+    setEventListeners(form);
+  });
+};
+
+function hasInvalidInput(inputs) {
+  return inputs.some((input) => {
+    return !input.validity.valid;
+  })
+};
+
+function toggleButton(inputs, button) {
+  if (hasInvalidInput(inputs)) {
+    button.classList.add('popup__save-button_disabled');
+    button.disabled = true;
+  } else {
+    button.classList.remove('popup__save-button_disabled');
+    button.disabled = false;
+  }
+};
+
+
+
+
+enableValidation();
+
+
+
+
+
+
+
+
+
 function hidePopup(popup) {
   popup.classList.remove("popup_opened");
   // console.log(`Попап ${popup.id} спрятан`);
