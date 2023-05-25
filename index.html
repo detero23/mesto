@@ -51,9 +51,9 @@
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form" name="popupEditForm" novalidate>
           <input type="text" class="popup__input popup__input_type_info-name" placeholder="Имя" id="inputEditName" name="inputEditName" minlength="2" maxlength="40" required>
-          <span class="popup__input-error popup__form_error_inputEditName"></span>
+          <span class="popup__input-error popup__input-error_inputEditName"></span>
           <input type="text" class="popup__input popup__input_type_info-job" placeholder="О себе" id="inputEditJob" name="inputEditJob" minlength="2" maxlength="200" required>
-          <span class="popup__input-error popup__form_error_inputEditJob"></span>
+          <span class="popup__input-error popup__input-error_inputEditJob"></span>
           <input type="submit" class="popup__save-button" value="Сохранить" name="saveButton">
         </form>
         <button type="button" class="popup__close-button"></button>
@@ -64,9 +64,9 @@
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form" name="popupAddForm" novalidate>
           <input type="text" class="popup__input popup__input_type_img-name" placeholder="Название" id="inputAddName" name="inputAddName" minlength="2" maxlength="30" required>
-          <span class="popup__input-error popup__form_error_inputAddName"></span>
+          <span class="popup__input-error popup__input-error_inputAddName"></span>
           <input type="url" class="popup__input popup__input_type_img-ref" placeholder="Ссылка на картинку" id="inputAddRef" name="inputAddRef" required>
-          <span class="popup__input-error popup__form_error_inputAddRef"></span>
+          <span class="popup__input-error popup__input-error_inputAddRef"></span>
           <input type="submit" class="popup__save-button" value="Создать" name="saveButton">
         </form>
         <button type="button" class="popup__close-button"></button>
@@ -81,6 +81,7 @@
     </section>
   </div>
   <script src="./scripts/cards.js"></script>
+  <script src="./scripts/validate.js"></script>
   <script src="./scripts/index.js"></script>
 </body>
 
