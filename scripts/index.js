@@ -36,15 +36,49 @@ const validationNames = {
 enableValidation(validationNames);
 
 function hidePopup(popup) {
-  popup.classList.remove("popup_opened"); // console.log(`Попап ${popup.id} спрятан`);
+  popup.classList.remove("popup_opened");
 }
 
 function showPopup(popup) {
-  popup.classList.add("popup_opened"); // console.log(`Попап ${popup.id} отрисован`);
+  popup.classList.add("popup_opened");
+}
+
+function showImagePopup(popup) {
+  showPopup(popup);
+  addImageListeners();
+}
+
+function hideImagePopup(popup) {
+  hidePopup(popup);
+  removeImageListeners();
+}
+
+function addImageListeners() {
+  document.addEventListener("keydown", checkPressedKey);
+  document.addEventListener("click", checkClickTarget);
+}
+
+function removeImageListeners() {
+  document.removeEventListener("keydown", checkPressedKey);
+  document.removeEventListener("click", checkClickTarget);
+}
+
+function checkPressedKey(evt) {
+  console.log(evt);
+  if (evt.keyCode === 27) {
+    hideImagePopup(popupImage);
+  }
+}
+
+function checkClickTarget(evt) {
+  console.log(evt.target.id);
+  if (evt.target.id === "popupImage") {
+    hideImagePopup(popupImage);
+  }
 }
 
 function formSubmit(evt) {
-  evt.preventDefault(); // console.log(`Отправка формы ${evt.target.closest('.popup__form').name}`)
+  evt.preventDefault();
 }
 
 function updateInputFromText(input, text) {
@@ -67,11 +101,11 @@ function clearFullImageCaption() {
 }
 
 function toggleLike(el) {
-  el.classList.toggle("element__heart-icon_active"); // console.log(`Поставлен/убран лайк у карточки "${el.closest('.element').querySelector('.element__name').textContent}"`)
+  el.classList.toggle("element__heart-icon_active");
 }
 
 function deleteCard(card) {
-  card.remove(); // console.log(`Удалена карточка "${card.querySelector('.element__name').textContent}"`)
+  card.remove();
 }
 
 function createCard(card) {
@@ -82,7 +116,7 @@ function createCard(card) {
   newCardImage.addEventListener("click", () => {
     updateFullImageSrc(card.link);
     updateFullImageCaption(card.name);
-    showPopup(popupImage);
+    showImagePopup(popupImage);
   });
   newCard.querySelector(".element__name").textContent = card.name;
   newCard
@@ -92,12 +126,12 @@ function createCard(card) {
     .querySelector(".element__recycle")
     .addEventListener("click", (evt) =>
       deleteCard(evt.target.closest(".element"))
-    ); // console.log(`Создана карточка "${card.name}"`);
+    );
   return newCard;
 }
 
 function renderCard(card) {
-  cardsHolder.prepend(createCard(card)); // console.log(`Отрисована карточка "${card.name}"`);
+  cardsHolder.prepend(createCard(card));
 }
 
 buttonEdit.addEventListener("click", () => {
@@ -116,8 +150,8 @@ popupEditForm.addEventListener("submit", (evt) => {
 });
 
 buttonAdd.addEventListener("click", () => {
-  showPopup(popupAdd);
   popupAddForm.reset();
+  showPopup(popupAdd);
 });
 buttonAddClose.addEventListener("click", () => {
   hidePopup(popupAdd);
@@ -129,7 +163,7 @@ popupAddForm.addEventListener("submit", (evt) => {
 });
 
 buttonImageClose.addEventListener("click", () => {
-  hidePopup(popupImage);
+  hideImagePopup(popupImage);
 });
 
 initialCards.forEach((card) => {
