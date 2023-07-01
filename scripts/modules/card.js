@@ -21,23 +21,26 @@ export class Card {
       this._names.popupCaptionSelector
     );
     this._popupImageID = this._names.popupImageID;
+
+    this._keyListener = this._handleButton.bind(this);
+    this._clickListener = this._handleClick.bind(this);
   }
 
   _deleteCard() {
     this._template.remove();
-    console.log("Card deleted");
+    // console.log("Card deleted");
   }
 
   _toggleLike() {
     this._heart.classList.toggle(this._heartClass);
-    console.log("Like toggled");
+    // console.log("Like toggled");
   }
 
   _addListeners() {
     this._heart.addEventListener("click", () => this._toggleLike());
     this._recycle.addEventListener("click", () => this._deleteCard());
     this._image.addEventListener("click", () => this._showPopup());
-    console.log("Listeners settled");
+    // console.log("Listeners set");
   }
 
   generateCard() {
@@ -54,44 +57,44 @@ export class Card {
     this._updatePopup();
     this._popup.classList.add("popup_opened");
 
-    document.addEventListener("keydown", (evt) => this._handleButton(evt));
-    // document.addEventListener("click", (evt) => this._handleClick(evt));
+    document.addEventListener("keydown", this._keyListener);
+    document.addEventListener("click", this._clickListener, true);
 
-    console.log("Popup opened");
+    // console.log("Popup opened");
   }
 
   _updatePopup() {
     this._popupImage.src = this._card.link;
     this._popupCaption.textContent = this._card.name;
-    console.log("Popup updated");
+    // console.log("Popup updated");
   }
 
   _clearPopup() {
     this._popupImage.src = "";
     this._popupCaption.textContent = "";
-    console.log("Popup cleared");
+    // console.log("Popup cleared");
   }
 
   _hidePopup() {
     this._popup.classList.remove("popup_opened");
     this._clearPopup();
 
-    // document.removeEventListener("keydown", () => this._handleButton());  //не работает!!!
-    // document.removeEventListener("click", () => this._handleClick()); //не работает!!!
-    console.log("Popup closed");
+    document.removeEventListener("keydown", this._keyListener);
+    document.removeEventListener("click", this._clickListener, true);
+    // console.log("Popup closed");
   }
 
-  _handleButton(evt) {
+  _handleButton = function (evt) {
     if (evt.key === "Escape") {
-      console.log("Esc pressed");
+      // console.log("Esc pressed");
       this._hidePopup();
     }
-  }
+  };
 
-  _handleClick(evt) {
+  _handleClick = function (evt) {
     if (this._popupImageID.includes(evt.target.id)) {
-      console.log("Button clicked");
+      // console.log("Button clicked");
       this._hidePopup();
     }
-  }
+  };
 }

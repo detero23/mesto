@@ -25,6 +25,8 @@ const forms = Array.from(
   document.querySelectorAll(validationNames.formSelector)
 );
 
+
+
 function submitForm(evt) {
   evt.preventDefault();
 }
@@ -35,6 +37,8 @@ function updateInputFromText(input, text) {
 function updateTextFromInput(text, input) {
   text.textContent = input.value;
 }
+
+
 
 buttonEdit.addEventListener("click", () => {
   updateInputFromText(inputEditName, textInfoName);
@@ -60,29 +64,31 @@ popupAddForm.addEventListener("submit", (evt) => {
   hidePopup(popupAdd);
 });
 
+
+
 closeButtons.forEach((button) => {
   const popup = button.closest(".popup");
   button.addEventListener("click", () => hidePopup(popup));
 });
 
+let popupOpened = "";
+
+const refClickListener = function (evt) {
+  if (["popupEdit", "popupAdd"].includes(evt.target.id)) {
+    hidePopup(popupOpened);
+  }
+};
+const refPressedListener = function (evt) {
+  if (evt.key === "Escape") {
+    hidePopup(popupOpened);
+  }
+};
+
 function showPopup(popup) {
+  popupOpened = popup;
   popup.classList.add("popup_opened");
-  document.addEventListener(
-    "keydown",
-    (refPressedListener = function (evt) {
-      if (evt.key === "Escape") {
-        hidePopup(popup);
-      }
-    })
-  );
-  document.addEventListener(
-    "click",
-    (refClickListener = function (evt) {
-      if (["popupEdit", "popupAdd"].includes(evt.target.id)) {
-        hidePopup(popup);
-      }
-    })
-  );
+  document.addEventListener("keydown", refPressedListener);
+  document.addEventListener("click", refClickListener);
 }
 
 function hidePopup(popup) {
@@ -90,6 +96,8 @@ function hidePopup(popup) {
   document.removeEventListener("keydown", refPressedListener);
   document.removeEventListener("click", refClickListener);
 }
+
+
 
 function renderCard(card) {
   const newCard = new Card(cardNames, card).generateCard();
