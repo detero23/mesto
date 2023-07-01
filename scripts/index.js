@@ -1,5 +1,6 @@
-import { Card } from "./modules/card.js";
+import { Card } from "./modules/Card.js";
 import { initialCards, validationNames, cardNames } from "./initial.js";
+import { FormValidator } from "./modules/FormValidator.js";
 
 const buttonEdit = document.querySelector(".profile__edit-button");
 const buttonAdd = document.querySelector(".profile__add-button");
@@ -23,6 +24,10 @@ const cardsHolder = document.querySelector(".elements");
 
 
 // enableValidation(validationNames);
+const newValidation = new FormValidator(validationNames);
+const newValidationInstance = newValidation.enableValidation();
+
+
 
 function submitForm(evt) {
   evt.preventDefault();
@@ -85,8 +90,8 @@ function hidePopup(popup) {
 }
 
 function renderCard(card) {
-  const newCard = new Card(card, cardNames);
-  const newCardInstance = newCard.generateCard(card);
+  const newCard = new Card(cardNames, card);
+  const newCardInstance = newCard.generateCard();
 
   cardsHolder.prepend(newCardInstance);
 }

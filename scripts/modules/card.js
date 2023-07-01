@@ -1,20 +1,20 @@
 export class Card {
-  constructor(card, cardNames){
+  constructor(cardNames, card){
     this._card = card;
     this._names = cardNames;
 
-    this._template = document.querySelector(cardNames.templateSelector).content
-                              .querySelector(cardNames.elementSelector).cloneNode(true);
-    this._image = this._template.querySelector(cardNames.imageSelector);
-    this._name = this._template.querySelector(cardNames.nameSelector);
-    this._heart = this._template.querySelector(cardNames.heartSelector);
-    this._recycle = this._template.querySelector(cardNames.recycleSelector);
-    this._heartClass = cardNames.heartClass;
+    this._template = document.querySelector(this._names.templateSelector).content
+                              .querySelector(this._names.elementSelector).cloneNode(true);
+    this._image = this._template.querySelector(this._names.imageSelector);
+    this._name = this._template.querySelector(this._names.nameSelector);
+    this._heart = this._template.querySelector(this._names.heartSelector);
+    this._recycle = this._template.querySelector(this._names.recycleSelector);
+    this._heartClass = this._names.heartClass;
 
-    this._popup = document.querySelector(cardNames.popupSelector);
-    this._popupImage = this._popup.querySelector(cardNames.popupImageSelector);
-    this._popupCaption = this._popup.querySelector(cardNames.popupCaptionSelector);
-    this._popupImageID = cardNames.popupImageID;
+    this._popup = document.querySelector(this._names.popupSelector);
+    this._popupImage = this._popup.querySelector(this._names.popupImageSelector);
+    this._popupCaption = this._popup.querySelector(this._names.popupCaptionSelector);
+    this._popupImageID = this._names.popupImageID;
   }
 
   _deleteCard() {
