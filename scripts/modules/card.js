@@ -1,10 +1,12 @@
 export class Card {
-  constructor(cardNames, card){
+  constructor(cardNames, card) {
     this._card = card;
     this._names = cardNames;
 
-    this._template = document.querySelector(this._names.templateSelector).content
-                              .querySelector(this._names.elementSelector).cloneNode(true);
+    this._template = document
+      .querySelector(this._names.templateSelector)
+      .content.querySelector(this._names.elementSelector)
+      .cloneNode(true);
     this._image = this._template.querySelector(this._names.imageSelector);
     this._name = this._template.querySelector(this._names.nameSelector);
     this._heart = this._template.querySelector(this._names.heartSelector);
@@ -12,8 +14,12 @@ export class Card {
     this._heartClass = this._names.heartClass;
 
     this._popup = document.querySelector(this._names.popupSelector);
-    this._popupImage = this._popup.querySelector(this._names.popupImageSelector);
-    this._popupCaption = this._popup.querySelector(this._names.popupCaptionSelector);
+    this._popupImage = this._popup.querySelector(
+      this._names.popupImageSelector
+    );
+    this._popupCaption = this._popup.querySelector(
+      this._names.popupCaptionSelector
+    );
     this._popupImageID = this._names.popupImageID;
   }
 
@@ -51,19 +57,19 @@ export class Card {
     document.addEventListener("keydown", (evt) => this._handleButton(evt));
     // document.addEventListener("click", (evt) => this._handleClick(evt));
 
-    console.log("Popup opened")
+    console.log("Popup opened");
   }
 
   _updatePopup() {
     this._popupImage.src = this._card.link;
     this._popupCaption.textContent = this._card.name;
-    console.log("Popup updated")
+    console.log("Popup updated");
   }
 
   _clearPopup() {
     this._popupImage.src = "";
     this._popupCaption.textContent = "";
-    console.log("Popup cleared")
+    console.log("Popup cleared");
   }
 
   _hidePopup() {
@@ -75,16 +81,16 @@ export class Card {
     console.log("Popup closed");
   }
 
-  _handleButton (evt) {
+  _handleButton(evt) {
     if (evt.key === "Escape") {
-      console.log('Esc pressed');
+      console.log("Esc pressed");
       this._hidePopup();
     }
   }
 
-  _handleClick (evt) {
+  _handleClick(evt) {
     if (this._popupImageID.includes(evt.target.id)) {
-      console.log('Button clicked');
+      console.log("Button clicked");
       this._hidePopup();
     }
   }

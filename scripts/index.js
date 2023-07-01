@@ -21,13 +21,9 @@ const buttonAddSubmit = popupAdd.querySelector(".popup__save-button");
 const closeButtons = document.querySelectorAll(".popup__close-button");
 
 const cardsHolder = document.querySelector(".elements");
-
-
-// enableValidation(validationNames);
-const newValidation = new FormValidator(validationNames);
-const newValidationInstance = newValidation.enableValidation();
-
-
+const forms = Array.from(
+  document.querySelectorAll(validationNames.formSelector)
+);
 
 function submitForm(evt) {
   evt.preventDefault();
@@ -71,16 +67,22 @@ closeButtons.forEach((button) => {
 
 function showPopup(popup) {
   popup.classList.add("popup_opened");
-  document.addEventListener("keydown", refPressedListener = function(evt) {
-    if (evt.key === "Escape") {
-      hidePopup(popup);
-    }
-  });
-  document.addEventListener("click", refClickListener = function(evt) {
-    if (["popupEdit","popupAdd"].includes(evt.target.id)) {
-      hidePopup(popup);
-    }
-  });
+  document.addEventListener(
+    "keydown",
+    (refPressedListener = function (evt) {
+      if (evt.key === "Escape") {
+        hidePopup(popup);
+      }
+    })
+  );
+  document.addEventListener(
+    "click",
+    (refClickListener = function (evt) {
+      if (["popupEdit", "popupAdd"].includes(evt.target.id)) {
+        hidePopup(popup);
+      }
+    })
+  );
 }
 
 function hidePopup(popup) {
@@ -90,12 +92,14 @@ function hidePopup(popup) {
 }
 
 function renderCard(card) {
-  const newCard = new Card(cardNames, card);
-  const newCardInstance = newCard.generateCard();
-
-  cardsHolder.prepend(newCardInstance);
+  const newCard = new Card(cardNames, card).generateCard();
+  cardsHolder.prepend(newCard);
 }
 
 initialCards.forEach((card) => {
   renderCard(card);
+});
+
+forms.forEach((form) => {
+  new FormValidator(validationNames, form).enableValidation();
 });

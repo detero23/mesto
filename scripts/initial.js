@@ -5,7 +5,7 @@ export const validationNames = {
   inactiveButtonClass: "popup__save-button_disabled",
   inputErrorClass: "popup__form_type_error",
   errorClass: "popup__input-error_active",
-  errorSelector: ".popup__input-error"
+  errorSelector: ".popup__input-error",
 };
 
 export const cardNames = {
@@ -19,7 +19,7 @@ export const cardNames = {
   popupSelector: ".popup_type_image",
   popupImageSelector: ".popup__full-image",
   popupImageID: "popupImage",
-  popupCaptionSelector: ".popup__full-image-caption"
+  popupCaptionSelector: ".popup__full-image-caption",
 };
 
 export const initialCards = [
