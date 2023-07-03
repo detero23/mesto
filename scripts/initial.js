@@ -15,11 +15,7 @@ export const cardNames = {
   nameSelector: ".element__name",
   heartSelector: ".element__heart-icon",
   heartClass: "element__heart-icon_active",
-  recycleSelector: ".element__recycle",
-  popupSelector: ".popup_type_image",
-  popupImageSelector: ".popup__full-image",
-  popupImageID: "popupImage",
-  popupCaptionSelector: ".popup__full-image-caption",
+  recycleSelector: ".element__recycle"
 };
 
 export const initialCards = [

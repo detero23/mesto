@@ -1,7 +1,8 @@
 export class Card {
-  constructor(cardNames, card) {
+  constructor(cardNames, card, handleCardClick) {
     this._card = card;
     this._names = cardNames;
+    this._handleCardClick = handleCardClick;
 
     this._template = document
       .querySelector(this._names.templateSelector)
@@ -12,18 +13,6 @@ export class Card {
     this._heart = this._template.querySelector(this._names.heartSelector);
     this._recycle = this._template.querySelector(this._names.recycleSelector);
     this._heartClass = this._names.heartClass;
-
-    this._popup = document.querySelector(this._names.popupSelector);
-    this._popupImage = this._popup.querySelector(
-      this._names.popupImageSelector
-    );
-    this._popupCaption = this._popup.querySelector(
-      this._names.popupCaptionSelector
-    );
-    this._popupImageID = this._names.popupImageID;
-
-    this._keyListener = this._handleButton.bind(this);
-    this._clickListener = this._handleClick.bind(this);
   }
 
   _deleteCard() {
@@ -39,7 +28,9 @@ export class Card {
   _addListeners() {
     this._heart.addEventListener("click", () => this._toggleLike());
     this._recycle.addEventListener("click", () => this._deleteCard());
-    this._image.addEventListener("click", () => this._showPopup());
+    this._image.addEventListener('click', () => {
+      this._handleCardClick(this._card.name, this._card.link)
+    });
     // console.log("Listeners set");
   }
 
@@ -52,50 +43,4 @@ export class Card {
 
     return this._template;
   }
-
-  _showPopup() {
-    this._updatePopup();
-    this._popup.classList.add("popup_opened");
-
-    document.addEventListener("keydown", this._keyListener);
-    document.addEventListener("click", this._clickListener, true);
-
-    // console.log("Popup opened");
-  }
-
-  _updatePopup() {
-    this._popupImage.src = this._card.link;
-    this._popupImage.alt = `Фото ${this._card.name}`;
-    this._popupCaption.textContent = this._card.name;
-    // console.log("Popup updated");
-  }
-
-  _clearPopup() {
-    this._popupImage.src = "";
-    this._popupCaption.textContent = "";
-    // console.log("Popup cleared");
-  }
-
-  _hidePopup() {
-    this._popup.classList.remove("popup_opened");
-    this._clearPopup();
-
-    document.removeEventListener("keydown", this._keyListener);
-    document.removeEventListener("click", this._clickListener, true);
-    // console.log("Popup closed");
-  }
-
-  _handleButton = function (evt) {
-    if (evt.key === "Escape") {
-      // console.log("Esc pressed");
-      this._hidePopup();
-    }
-  };
-
-  _handleClick = function (evt) {
-    if (this._popupImageID.includes(evt.target.id)) {
-      // console.log("Button clicked");
-      this._hidePopup();
-    }
-  };
 }

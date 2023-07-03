@@ -16,15 +16,16 @@ const popupAdd = document.querySelector(".popup_type_add");
 const popupAddForm = popupAdd.querySelector(".popup__form");
 const inputAddName = popupAdd.querySelector(".popup__input_type_img-name");
 const inputAddRef = popupAdd.querySelector(".popup__input_type_img-ref");
-// const buttonAddSubmit = popupAdd.querySelector(".popup__save-button");
+
+const popupImage = document.querySelector(".popup_type_image");
+const sourceFullImage = popupImage.querySelector(".popup__full-image");
+const captionFullImage = popupImage.querySelector(".popup__full-image-caption");
 
 const closeButtons = document.querySelectorAll(".popup__close-button");
 
 const cardsHolder = document.querySelector(".elements");
 
-// const forms = Array.from(
-//   document.querySelectorAll(validationNames.formSelector)
-// );
+
 
 const validatorAddForm = new FormValidator(validationNames, popupAddForm);
 const validatorEditForm = new FormValidator(validationNames, popupEditForm);
@@ -46,7 +47,6 @@ function updateTextFromInput(text, input) {
 }
 
 
-
 buttonEdit.addEventListener("click", () => {
   updateInputFromText(inputEditName, textInfoName);
   updateInputFromText(inputEditJob, textInfoJob);
@@ -63,8 +63,6 @@ buttonAdd.addEventListener("click", () => {
   popupAddForm.reset();
   showPopup(popupAdd);
   validatorAddForm.disableButton();
-  // buttonAddSubmit.classList.add(validationNames.inactiveButtonClass);
-  // buttonAddSubmit.disabled = true;
 });
 popupAddForm.addEventListener("submit", (evt) => {
   submitForm(evt);
@@ -82,7 +80,7 @@ closeButtons.forEach((button) => {
 let popupOpened = "";
 
 const refClickListener = function (evt) {
-  if (["popupEdit", "popupAdd"].includes(evt.target.id)) {
+  if (["popupImage","popupEdit", "popupAdd"].includes(evt.target.id)) {
     hidePopup(popupOpened);
   }
 };
@@ -107,7 +105,7 @@ function hidePopup(popup) {
 
 
 function createCard(card) {
-const cardElement = new Card(cardNames, card).generateCard();
+const cardElement = new Card(cardNames, card, handleCardClick).generateCard();
 return cardElement
 }
 
@@ -119,8 +117,9 @@ initialCards.forEach((card) => {
   renderCard(createCard(card));
 });
 
-
-// forms.forEach((form) => {
-  // console.log(form)
-    // new FormValidator(validationNames, form).enableValidation();
-// });
+function handleCardClick(name, link) {
+  sourceFullImage.src = link;
+  sourceFullImage.alt = `Фото ${name}`;
+  captionFullImage.textContent = name;
+  showPopup(popupImage);
+}
