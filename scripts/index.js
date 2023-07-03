@@ -22,47 +22,40 @@ const sourceFullImage = popupImage.querySelector(".popup__full-image");
 const captionFullImage = popupImage.querySelector(".popup__full-image-caption");
 
 const closeButtons = document.querySelectorAll(".popup__close-button");
-
 const cardsHolder = document.querySelector(".elements");
 
+const formValidators = {};
 
-
-const validatorAddForm = new FormValidator(validationNames, popupAddForm);
-const validatorEditForm = new FormValidator(validationNames, popupEditForm);
-
-validatorAddForm.enableValidation();
-validatorEditForm.enableValidation();
-
-
-
-function submitForm(evt) {
-  evt.preventDefault();
+function enableValidation(config) {
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement);
+    const formName = formElement.getAttribute("name");
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
 }
 
-function updateInputFromText(input, text) {
-  input.value = text.textContent;
-}
-function updateTextFromInput(text, input) {
-  text.textContent = input.value;
-}
-
+enableValidation(validationNames);
 
 buttonEdit.addEventListener("click", () => {
-  updateInputFromText(inputEditName, textInfoName);
-  updateInputFromText(inputEditJob, textInfoJob);
+  inputEditName.value = textInfoName.textContent;
+  inputEditJob.value = textInfoJob.textContent;
+  formValidators[popupEditForm.getAttribute("name")].resetValidation();
   showPopup(popupEdit);
 });
 popupEditForm.addEventListener("submit", (evt) => {
   submitForm(evt);
-  updateTextFromInput(textInfoName, inputEditName);
-  updateTextFromInput(textInfoJob, inputEditJob);
+  textInfoName.textContent = inputEditName.value;
+  textInfoJob.textContent = inputEditJob.value;
   hidePopup(popupEdit);
 });
 
 buttonAdd.addEventListener("click", () => {
   popupAddForm.reset();
+  formValidators[popupAddForm.getAttribute("name")].resetValidation();
+  formValidators[popupAddForm.getAttribute("name")].disableButton();
   showPopup(popupAdd);
-  validatorAddForm.disableButton();
 });
 popupAddForm.addEventListener("submit", (evt) => {
   submitForm(evt);
@@ -70,17 +63,17 @@ popupAddForm.addEventListener("submit", (evt) => {
   hidePopup(popupAdd);
 });
 
-
-
 closeButtons.forEach((button) => {
   const popup = button.closest(".popup");
   button.addEventListener("click", () => hidePopup(popup));
 });
 
-let popupOpened = "";
+function submitForm(evt) {
+  evt.preventDefault();
+}
 
 const refClickListener = function (evt) {
-  if (["popupImage","popupEdit", "popupAdd"].includes(evt.target.id)) {
+  if (["popupImage", "popupEdit", "popupAdd"].includes(evt.target.id)) {
     hidePopup(popupOpened);
   }
 };
@@ -89,6 +82,8 @@ const refPressedListener = function (evt) {
     hidePopup(popupOpened);
   }
 };
+
+let popupOpened = "";
 
 function showPopup(popup) {
   popupOpened = popup;
@@ -103,19 +98,18 @@ function hidePopup(popup) {
   document.removeEventListener("click", refClickListener);
 }
 
+initialCards.forEach((card) => {
+  renderCard(createCard(card));
+});
 
 function createCard(card) {
-const cardElement = new Card(cardNames, card, handleCardClick).generateCard();
-return cardElement
+  const cardElement = new Card(cardNames, card, handleCardClick).generateCard();
+  return cardElement;
 }
 
 function renderCard(card) {
   cardsHolder.prepend(card);
 }
-
-initialCards.forEach((card) => {
-  renderCard(createCard(card));
-});
 
 function handleCardClick(name, link) {
   sourceFullImage.src = link;

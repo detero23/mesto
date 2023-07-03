@@ -28,8 +28,8 @@ export class Card {
   _addListeners() {
     this._heart.addEventListener("click", () => this._toggleLike());
     this._recycle.addEventListener("click", () => this._deleteCard());
-    this._image.addEventListener('click', () => {
-      this._handleCardClick(this._card.name, this._card.link)
+    this._image.addEventListener("click", () => {
+      this._handleCardClick(this._card.name, this._card.link);
     });
     // console.log("Listeners set");
   }
