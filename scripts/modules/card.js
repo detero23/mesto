@@ -65,6 +65,7 @@ export class Card {
 
   _updatePopup() {
     this._popupImage.src = this._card.link;
+    this._popupImage.alt = `Фото ${this._card.name}`;
     this._popupCaption.textContent = this._card.name;
     // console.log("Popup updated");
   }

@@ -1,11 +1,19 @@
 export class FormValidator {
-  constructor(validationNames, form) {
+  constructor(validationNames, formToValidate, submitButton) {
     this._names = validationNames;
-    this._form = form;
+    this._form = formToValidate;
+    this._submit = submitButton;
   }
 
   enableValidation() {
     this._setEventListeners();
+  }
+
+  disableButton() {
+    const btn = this._form.querySelector(this._names.submitButtonSelector);
+
+    btn.classList.add(this._names.inactiveButtonClass);
+    btn.disabled = true;
   }
 
   _setEventListeners() {

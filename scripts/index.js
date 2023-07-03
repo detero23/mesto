@@ -16,14 +16,21 @@ const popupAdd = document.querySelector(".popup_type_add");
 const popupAddForm = popupAdd.querySelector(".popup__form");
 const inputAddName = popupAdd.querySelector(".popup__input_type_img-name");
 const inputAddRef = popupAdd.querySelector(".popup__input_type_img-ref");
-const buttonAddSubmit = popupAdd.querySelector(".popup__save-button");
+// const buttonAddSubmit = popupAdd.querySelector(".popup__save-button");
 
 const closeButtons = document.querySelectorAll(".popup__close-button");
 
 const cardsHolder = document.querySelector(".elements");
-const forms = Array.from(
-  document.querySelectorAll(validationNames.formSelector)
-);
+
+// const forms = Array.from(
+//   document.querySelectorAll(validationNames.formSelector)
+// );
+
+const validatorAddForm = new FormValidator(validationNames, popupAddForm);
+const validatorEditForm = new FormValidator(validationNames, popupEditForm);
+
+validatorAddForm.enableValidation();
+validatorEditForm.enableValidation();
 
 
 
@@ -55,12 +62,13 @@ popupEditForm.addEventListener("submit", (evt) => {
 buttonAdd.addEventListener("click", () => {
   popupAddForm.reset();
   showPopup(popupAdd);
-  buttonAddSubmit.classList.add(validationNames.inactiveButtonClass);
-  buttonAddSubmit.disabled = true;
+  validatorAddForm.disableButton();
+  // buttonAddSubmit.classList.add(validationNames.inactiveButtonClass);
+  // buttonAddSubmit.disabled = true;
 });
 popupAddForm.addEventListener("submit", (evt) => {
   submitForm(evt);
-  renderCard({ name: inputAddName.value, link: inputAddRef.value });
+  renderCard(createCard({ name: inputAddName.value, link: inputAddRef.value }));
   hidePopup(popupAdd);
 });
 
@@ -98,16 +106,21 @@ function hidePopup(popup) {
 }
 
 
+function createCard(card) {
+const cardElement = new Card(cardNames, card).generateCard();
+return cardElement
+}
 
 function renderCard(card) {
-  const newCard = new Card(cardNames, card).generateCard();
-  cardsHolder.prepend(newCard);
+  cardsHolder.prepend(card);
 }
 
 initialCards.forEach((card) => {
-  renderCard(card);
+  renderCard(createCard(card));
 });
 
-forms.forEach((form) => {
-  new FormValidator(validationNames, form).enableValidation();
-});
+
+// forms.forEach((form) => {
+  // console.log(form)
+    // new FormValidator(validationNames, form).enableValidation();
+// });
