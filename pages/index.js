@@ -2,6 +2,7 @@ import {
   initialCards,
   validationNames,
   cardNames,
+  userInfoNames,
   cardHolderSelector,
 } from "../utils/constants.js";
 
@@ -10,11 +11,12 @@ import { FormValidator } from "../components/FormValidator.js";
 import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import { UserInfo } from "../components/UserInfo.js";
 
 const buttonEdit = document.querySelector(".profile__edit-button");
 const buttonAdd = document.querySelector(".profile__add-button");
-const textInfoName = document.querySelector(".profile__name");
-const textInfoJob = document.querySelector(".profile__ocupation");
+
+const user = new UserInfo(userInfoNames);
 
 const formValidators = {};
 
@@ -46,8 +48,7 @@ const cardsSection = new Section(
 cardsSection.renderInitial();
 
 const editPopup = new PopupWithForm(".popup_type_edit", (inputs) => {
-  textInfoName.textContent = inputs[0].value;
-  textInfoJob.textContent = inputs[1].value;
+  user.setUserInfo(inputs[0].value, inputs[1].value);
 });
 editPopup.setEventListeners();
 
@@ -63,7 +64,10 @@ const imgPopup = new PopupWithImage(".popup_type_image");
 imgPopup.setEventListeners();
 
 buttonEdit.addEventListener("click", () => {
-  editPopup.updateValues([textInfoName.textContent,textInfoJob.textContent]);
+  editPopup.updateValues([
+    user.getUserInfo().name,
+    user.getUserInfo().description,
+  ]);
   formValidators[editPopup.getForm().getAttribute("name")].resetValidation();
   editPopup.open();
 });

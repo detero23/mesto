@@ -10,6 +10,11 @@ export const validationNames = {
 
 export const cardHolderSelector = ".elements";
 
+export const userInfoNames = {
+  nameSelector: ".profile__name",
+  descriptionSelector: ".profile__ocupation"
+}
+
 export const cardNames = {
   templateSelector: "#templateCard",
   elementSelector: ".element",

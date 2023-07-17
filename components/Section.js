@@ -7,7 +7,7 @@ export class Section {
   }
 
   renderInitial() {
-    this._initials.forEach(initial => {
+    this._initials.forEach((initial) => {
       this.renderItem(initial);
     });
   }
