@@ -1,5 +1,3 @@
-export const cardHolderSelector = ".elements";
-
 export const validationNames = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -9,6 +7,8 @@ export const validationNames = {
   errorClass: "popup__input-error_active",
   errorSelector: ".popup__input-error",
 };
+
+export const cardHolderSelector = ".elements";
 
 export const cardNames = {
   templateSelector: "#templateCard",
