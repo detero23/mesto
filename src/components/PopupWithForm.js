@@ -10,7 +10,17 @@ export class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    return this._inputs;
+    const inputValues = {};
+    this._inputs.forEach((input) => {
+      inputValues[input.name] = input.value;
+    });
+    return inputValues;
+  }
+
+  _setInputValues(newValues) {
+    this._inputs.forEach((input) => {
+      input.value = newValues[input.name];
+    });
   }
 
   setEventListeners() {
@@ -36,9 +46,7 @@ export class PopupWithForm extends Popup {
     this._form.reset();
   }
 
-  updateValues(textArray) {
-    for (let i = 0; i < textArray.length; i++) {
-      this._getInputValues()[i].value = textArray[i];
-    }
+  updateValues(newValues) {
+    this._setInputValues(newValues);
   }
 }

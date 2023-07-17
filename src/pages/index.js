@@ -1,4 +1,4 @@
-import './index.css';
+import "./index.css";
 
 import {
   initialCards,
@@ -50,14 +50,14 @@ const cardsSection = new Section(
 cardsSection.renderInitial();
 
 const editPopup = new PopupWithForm(".popup_type_edit", (inputs) => {
-  user.setUserInfo(inputs[0].value, inputs[1].value);
+  user.setUserInfo(inputs.inputEditName, inputs.inputEditJob);
 });
 editPopup.setEventListeners();
 
 const addPopup = new PopupWithForm(".popup_type_add", (inputs) => {
   cardsSection.renderItem({
-    name: inputs[0].value,
-    link: inputs[1].value,
+    name: inputs.inputAddName,
+    link: inputs.inputAddRef,
   });
 });
 addPopup.setEventListeners();
@@ -66,10 +66,11 @@ const imgPopup = new PopupWithImage(".popup_type_image");
 imgPopup.setEventListeners();
 
 buttonEdit.addEventListener("click", () => {
-  editPopup.updateValues([
-    user.getUserInfo().name,
-    user.getUserInfo().description,
-  ]);
+  const userInfo = user.getUserInfo();
+  editPopup.updateValues({
+    inputEditName: userInfo.name,
+    inputEditJob: userInfo.description,
+  });
   formValidators[editPopup.getForm().getAttribute("name")].resetValidation();
   editPopup.open();
 });

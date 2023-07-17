@@ -1,6 +1,6 @@
 export class FormValidator {
-  constructor(validationNames, formToValidate) {
-    this._names = validationNames;
+  constructor(validationConfig, formToValidate) {
+    this._names = validationConfig;
     this._form = formToValidate;
 
     this._inputs = Array.from(
@@ -23,6 +23,11 @@ export class FormValidator {
   disableButton() {
     this._button.classList.add(this._names.inactiveButtonClass);
     this._button.disabled = true;
+  }
+
+  enableButton() {
+    this._button.classList.remove(this._names.inactiveButtonClass);
+    this._button.disabled = false;
   }
 
   _setEventListeners() {
@@ -65,11 +70,9 @@ export class FormValidator {
 
   _toggleButton() {
     if (this._hasInvalidInput(this._inputs)) {
-      this._button.classList.add(this._names.inactiveButtonClass);
-      this._button.disabled = true;
+      this.disableButton();
     } else {
-      this._button.classList.remove(this._names.inactiveButtonClass);
-      this._button.disabled = false;
+      this.enableButton();
     }
   }
 
