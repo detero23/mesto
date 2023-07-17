@@ -1,3 +1,5 @@
+export const cardHolderSelector = ".elements";
+
 export const validationNames = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",

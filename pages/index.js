@@ -1,6 +1,9 @@
-import { Card } from "./modules/card.js";
-import { initialCards, validationNames, cardNames } from "./initial.js";
-import { FormValidator } from "./modules/FormValidator.js";
+import { initialCards, validationNames, cardNames, cardHolderSelector } from "../utils/constants.js";
+
+import { Card } from "../components/Card.js";
+import { FormValidator } from "../components/FormValidator.js";
+import { Section } from "../components/Section.js";
+
 
 const buttonEdit = document.querySelector(".profile__edit-button");
 const buttonAdd = document.querySelector(".profile__add-button");
@@ -22,7 +25,7 @@ const sourceFullImage = popupImage.querySelector(".popup__full-image");
 const captionFullImage = popupImage.querySelector(".popup__full-image-caption");
 
 const closeButtons = document.querySelectorAll(".popup__close-button");
-const cardsHolder = document.querySelector(".elements");
+
 
 const formValidators = {};
 
@@ -35,8 +38,22 @@ function enableValidation(config) {
     validator.enableValidation();
   });
 }
-
 enableValidation(validationNames);
+
+const cardsSection = new Section(
+  {
+    items: initialCards,
+    renderer: (card) => {
+      const cardElement = new Card(cardNames, card, handleCardClick).generateCard();
+      cardsSection.addItem(cardElement);
+    }
+  },
+  cardHolderSelector
+)
+cardsSection.renderInitial();
+
+
+
 
 buttonEdit.addEventListener("click", () => {
   inputEditName.value = textInfoName.textContent;
@@ -59,7 +76,7 @@ buttonAdd.addEventListener("click", () => {
 });
 popupAddForm.addEventListener("submit", (evt) => {
   submitForm(evt);
-  renderCard(createCard({ name: inputAddName.value, link: inputAddRef.value }));
+  cardsSection.renderItem({ name: inputAddName.value, link: inputAddRef.value });
   hidePopup(popupAdd);
 });
 
@@ -96,19 +113,6 @@ function hidePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener("keydown", refPressedListener);
   document.removeEventListener("click", refClickListener);
-}
-
-initialCards.forEach((card) => {
-  renderCard(createCard(card));
-});
-
-function createCard(card) {
-  const cardElement = new Card(cardNames, card, handleCardClick).generateCard();
-  return cardElement;
-}
-
-function renderCard(card) {
-  cardsHolder.prepend(card);
 }
 
 function handleCardClick(name, link) {
