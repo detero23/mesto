@@ -1,10 +1,86 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <!-- содержимое head -->
-    <!-- уберите ссылку на файл стилей: -->
-  </head>
-  <body>
-    <!-- содержимое body -->
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Место</title>
+  <!-- <link rel="stylesheet" href="./pages/index.css"> -->
+</head>
+
+<body>
+  <div class="page">
+    <header class="header">
+      <img src="<%=require('./images/logo-white.svg')%>" alt="Лого" class="header__logo">
+    </header>
+
+    <main class="content">
+      <section class="profile">
+        <img src="<%=require('./images/avatar.png')%>" alt="Иван Крузенштерн" class="profile__avatar">
+        <div class="profile__info">
+          <div class="profile__name-holder">
+            <h1 class="profile__name">Иван Крузенштерн</h1>
+            <button type="button" class="profile__edit-button"></button>
+          </div>
+          <p class="profile__ocupation">Российский мореплаватель, адмирал</p>
+        </div>
+        <button type="button" class="profile__add-button"></button>
+      </section>
+
+      <section class="elements" aria-label="Карточки">
+        <template id="templateCard">
+          <div class="element">
+            <img src="#" alt="Фото" class="element__image">
+            <div class="element__white-space">
+              <h2 class="element__name"></h2>
+              <button type="button" class="element__heart-icon"></button>
+            </div>
+            <button type="button" class="element__recycle"></button>
+          </div>
+        </template>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small class="footer__copyright">&COPY; 2024 Mesto Russia</small>
+    </footer>
+
+    <section class="popup popup_type_edit" id="popupEdit">
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form" name="popupEditForm" novalidate>
+          <input type="text" class="popup__input popup__input_type_info-name" placeholder="Имя" id="inputEditName" name="inputEditName" minlength="2" maxlength="40" required>
+          <span class="popup__input-error popup__input-error_inputEditName"></span>
+          <input type="text" class="popup__input popup__input_type_info-job" placeholder="О себе" id="inputEditJob" name="inputEditJob" minlength="2" maxlength="200" required>
+          <span class="popup__input-error popup__input-error_inputEditJob"></span>
+          <input type="submit" class="popup__save-button" value="Сохранить" name="saveButton">
+        </form>
+        <button type="button" class="popup__close-button"></button>
+      </div>
+    </section>
+    <section class="popup popup_type_add" id="popupAdd">
+      <div class="popup__container">
+        <h2 class="popup__title">Новое место</h2>
+        <form class="popup__form" name="popupAddForm" novalidate>
+          <input type="text" class="popup__input popup__input_type_img-name" placeholder="Название" id="inputAddName" name="inputAddName" minlength="2" maxlength="30" required>
+          <span class="popup__input-error popup__input-error_inputAddName"></span>
+          <input type="url" class="popup__input popup__input_type_img-ref" placeholder="Ссылка на картинку" id="inputAddRef" name="inputAddRef" required>
+          <span class="popup__input-error popup__input-error_inputAddRef"></span>
+          <input type="submit" class="popup__save-button" value="Создать" name="saveButton">
+        </form>
+        <button type="button" class="popup__close-button"></button>
+      </div>
+    </section>
+    <section class="popup popup_type_image" id="popupImage" aria-label="Фулскрин">
+      <figure class="popup__full-image-container">
+        <img class="popup__full-image" src="#" alt="Фото">
+        <figcaption class="popup__full-image-caption"></figcaption>
+        <button type="button" class="popup__close-button"></button>
+      </figure>
+    </section>
+  </div>
+  <!-- <script type='module' src="./pages/index.js"></script> -->
+</body>
+
 </html>
