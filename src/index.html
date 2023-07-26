@@ -33,7 +33,10 @@
             <img src="#" alt="Фото" class="element__image">
             <div class="element__white-space">
               <h2 class="element__name"></h2>
-              <button type="button" class="element__heart-icon"></button>
+              <div class="element__like-holder">
+                <button type="button" class="element__heart-icon"></button>
+                <p class="element__like-count">5</p>
+              </div>
             </div>
             <button type="button" class="element__recycle"></button>
           </div>
@@ -49,9 +52,11 @@
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form" name="popupEditForm" novalidate>
-          <input type="text" class="popup__input popup__input_type_info-name" placeholder="Имя" id="inputEditName" name="inputEditName" minlength="2" maxlength="40" required>
+          <input type="text" class="popup__input popup__input_type_info-name" placeholder="Имя" id="inputEditName"
+            name="inputEditName" minlength="2" maxlength="40" required>
           <span class="popup__input-error popup__input-error_inputEditName"></span>
-          <input type="text" class="popup__input popup__input_type_info-job" placeholder="О себе" id="inputEditJob" name="inputEditJob" minlength="2" maxlength="200" required>
+          <input type="text" class="popup__input popup__input_type_info-job" placeholder="О себе" id="inputEditJob"
+            name="inputEditJob" minlength="2" maxlength="200" required>
           <span class="popup__input-error popup__input-error_inputEditJob"></span>
           <input type="submit" class="popup__save-button" value="Сохранить" name="saveButton">
         </form>
@@ -62,9 +67,11 @@
       <div class="popup__container">
         <h2 class="popup__title">Новое место</h2>
         <form class="popup__form" name="popupAddForm" novalidate>
-          <input type="text" class="popup__input popup__input_type_img-name" placeholder="Название" id="inputAddName" name="inputAddName" minlength="2" maxlength="30" required>
+          <input type="text" class="popup__input popup__input_type_img-name" placeholder="Название" id="inputAddName"
+            name="inputAddName" minlength="2" maxlength="30" required>
           <span class="popup__input-error popup__input-error_inputAddName"></span>
-          <input type="url" class="popup__input popup__input_type_img-ref" placeholder="Ссылка на картинку" id="inputAddRef" name="inputAddRef" required>
+          <input type="url" class="popup__input popup__input_type_img-ref" placeholder="Ссылка на картинку"
+            id="inputAddRef" name="inputAddRef" required>
           <span class="popup__input-error popup__input-error_inputAddRef"></span>
           <input type="submit" class="popup__save-button" value="Создать" name="saveButton">
         </form>

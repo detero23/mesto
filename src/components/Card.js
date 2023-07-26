@@ -11,6 +11,7 @@ export class Card {
     this._image = this._template.querySelector(this._cardSelectors.imageSelector);
     this._name = this._template.querySelector(this._cardSelectors.nameSelector);
     this._heart = this._template.querySelector(this._cardSelectors.heartSelector);
+    this._likes = this._template.querySelector(this._cardSelectors.likesSelector);
     this._recycle = this._template.querySelector(this._cardSelectors.recycleSelector);
     this._heartClass = this._cardSelectors.heartClass;
   }
@@ -35,6 +36,7 @@ export class Card {
     this._image.src = this._cardData.link;
     this._image.alt = `Фото ${this._cardData.name}`;
     this._name.textContent = this._cardData.name;
+    this._likes.textContent = this._cardData.likes.length;
 
     this._addListeners();
 
