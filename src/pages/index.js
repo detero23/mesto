@@ -14,11 +14,13 @@ import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
+import { Api } from "../components/Api";
 
 const buttonEdit = document.querySelector(".profile__edit-button");
 const buttonAdd = document.querySelector(".profile__add-button");
 
 const user = new UserInfo(userInfoNames);
+const api = new Api();
 
 const formValidators = {};
 
@@ -85,3 +87,13 @@ buttonAdd.addEventListener("click", () => {
 function handleCardClick(name, link) {
   imgPopup.open(name, link);
 }
+
+api
+  .getUserInfo()
+  .then((result) => {
+    user.setUserInfo(result.name, result.about);
+    user.setAvatar(result.avatar);
+  })
+  .catch((err) => {
+    console.error(`Ошибка: ${err.status}`);
+  });

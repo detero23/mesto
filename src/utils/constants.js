@@ -12,7 +12,8 @@ export const cardHolderSelector = ".elements";
 
 export const userInfoNames = {
   nameSelector: ".profile__name",
-  descriptionSelector: ".profile__ocupation"
+  descriptionSelector: ".profile__ocupation",
+  avatarSelector: ".profile__avatar"
 }
 
 export const cardNames = {

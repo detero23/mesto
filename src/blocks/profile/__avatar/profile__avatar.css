@@ -2,6 +2,7 @@
   max-width: 120px;
   object-fit: cover;
   object-position: center;
+  aspect-ratio: 1;
   display: block;
   mask-image: radial-gradient(black 60px, transparent 60px);
   -webkit-mask-image: radial-gradient(black 60px, transparent 60px);
