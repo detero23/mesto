@@ -80,10 +80,17 @@ const editPopup = new PopupWithForm(".popup_type_edit", (inputs) => {
 editPopup.setEventListeners();
 
 const addPopup = new PopupWithForm(".popup_type_add", (inputs) => {
-  cardsSection.renderItem({
-    name: inputs.inputAddName,
-    link: inputs.inputAddRef,
-  });
+  api
+    .postCard({ name: inputs.inputAddName, link: inputs.inputAddRef })
+    .then(() => {
+      cardsSection.renderItem({
+        name: inputs.inputAddName,
+        link: inputs.inputAddRef,
+      });
+    })
+    .catch((err) => {
+      console.error(`Добавление новой карточки - ошибка ${err.status}`);
+    });
 });
 addPopup.setEventListeners();
 
