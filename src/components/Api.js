@@ -12,11 +12,32 @@ export class Api {
     return this._get("/users/me");
   }
 
+  patchUserInfo({ name, about }) {
+    return this._patch("/users/me", { name: name, about: about });
+  }
+
   _get(queryParams) {
     return fetch(this._baseUrl + queryParams, {
+      method: "GET",
       headers: {
         authorization: this._token,
       },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res);
+    });
+  }
+
+  _patch(queryParams, body) {
+    return fetch(this._baseUrl + queryParams, {
+      method: "PATCH",
+      headers: {
+        authorization: this._token,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
     }).then((res) => {
       if (res.ok) {
         return res.json();

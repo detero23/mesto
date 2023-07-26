@@ -61,14 +61,21 @@ api
 api
   .getInitialCards()
   .then((result) => {
-    cardsSection.renderInitial(result);
+    cardsSection.renderInitial(result); //Добавить проверку на 404 если одна из карт косячная
   })
   .catch((err) => {
     console.error(`Инициализация карточек - ошибка ${err.status}`);
   });
 
 const editPopup = new PopupWithForm(".popup_type_edit", (inputs) => {
-  user.setUserInfo(inputs.inputEditName, inputs.inputEditJob);
+  api
+    .patchUserInfo({ name: inputs.inputEditName, about: inputs.inputEditJob })
+    .then(() => {
+      user.setUserInfo(inputs.inputEditName, inputs.inputEditJob);
+    })
+    .catch((err) => {
+      console.error(`Обновление инфо пользователя - ошибка ${err.status}`);
+    });
 });
 editPopup.setEventListeners();
 
