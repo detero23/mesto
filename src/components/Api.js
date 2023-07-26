@@ -5,7 +5,7 @@ export class Api {
   }
 
   getInitialCards() {
-    // ...
+    return this._get("/cards");
   }
 
   getUserInfo() {

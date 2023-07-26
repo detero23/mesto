@@ -1,7 +1,6 @@
 import "./index.css";
 
 import {
-  initialCards,
   validationNames,
   cardNames,
   userInfoNames,
@@ -37,7 +36,6 @@ enableValidation(validationNames);
 
 const cardsSection = new Section(
   {
-    items: initialCards,
     renderer: (card) => {
       const cardElement = new Card(
         cardNames,
@@ -49,7 +47,25 @@ const cardsSection = new Section(
   },
   cardHolderSelector
 );
-cardsSection.renderInitial();
+
+api
+  .getUserInfo()
+  .then((result) => {
+    user.setUserInfo(result.name, result.about);
+    user.setAvatar(result.avatar);
+  })
+  .catch((err) => {
+    console.error(`Инфо пользователя - ошибка ${err.status}`);
+  });
+
+api
+  .getInitialCards()
+  .then((result) => {
+    cardsSection.renderInitial(result);
+  })
+  .catch((err) => {
+    console.error(`Инициализация карточек - ошибка ${err.status}`);
+  });
 
 const editPopup = new PopupWithForm(".popup_type_edit", (inputs) => {
   user.setUserInfo(inputs.inputEditName, inputs.inputEditJob);
@@ -87,13 +103,3 @@ buttonAdd.addEventListener("click", () => {
 function handleCardClick(name, link) {
   imgPopup.open(name, link);
 }
-
-api
-  .getUserInfo()
-  .then((result) => {
-    user.setUserInfo(result.name, result.about);
-    user.setAvatar(result.avatar);
-  })
-  .catch((err) => {
-    console.error(`Ошибка: ${err.status}`);
-  });

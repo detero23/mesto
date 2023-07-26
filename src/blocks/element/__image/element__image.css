@@ -1,5 +1,5 @@
 .element__image {
-  max-width: 100%;
+  width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
   object-position: center;
@@ -7,6 +7,5 @@
 }
 
 .element__image:hover {
-  /* opacity: .5; */
   cursor: pointer;
 }
