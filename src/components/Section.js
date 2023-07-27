@@ -6,14 +6,14 @@ export class Section {
     this._items = [];
   }
 
-  renderInitial(items,userID) {
+  renderInitial(items) {
     items.forEach((item) => {
-      this.renderItem(item,userID);
+      this.renderItem(item);
     });
   }
 
-  renderItem(item,userID) {
-    this._renderer(item,userID);
+  renderItem(item) {
+    this._renderer(item);
   }
 
   addItem(item) {

@@ -38,7 +38,7 @@ enableValidation(validationNames);
 
 const cardsSection = new Section(
   {
-    renderer: (card, userID) => {
+    renderer: (card) => {
       const cardElement = new Card(
         cardNames,
         card,
@@ -67,7 +67,7 @@ function setUserInfo() {
 }
 setUserInfo();
 
-function setInitialCards(userID) {
+function setInitialCards() {
   api
     // .getUserInfo()
     // .then((result) => {
@@ -76,7 +76,7 @@ function setInitialCards(userID) {
     // })
     .getInitialCards()
     .then((result) => {
-      cardsSection.renderInitial(result, userID); //Добавить проверку на то загруженна ли карточка
+      cardsSection.renderInitial(result); //Добавить проверку на то загруженна ли карточка
     })
     .catch((err) => {
       console.error(`Инициализация карточек - ошибка ${err.status}`);
@@ -98,14 +98,8 @@ editPopup.setEventListeners();
 const addPopup = new PopupWithForm(".popup_type_add", (inputs) => {
   api
     .postCard({ name: inputs.inputAddName, link: inputs.inputAddRef })
-    .then(() => {
-      cardsSection.renderItem(
-        {
-          name: inputs.inputAddName,
-          link: inputs.inputAddRef,
-        },
-        userID
-      );
+    .then((result) => {
+      cardsSection.renderItem(result); //Добавить проверку на то загруженна ли карточка
     })
     .catch((err) => {
       console.error(`Добавление новой карточки - ошибка ${err.status}`);
