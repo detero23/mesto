@@ -3,19 +3,25 @@ export class Section {
     this._renderer = renderer;
 
     this._holder = document.querySelector(selector);
+    // this._items = [];
   }
 
-  renderInitial(items) {
+  renderInitial(items,userID) {
     items.forEach((item) => {
-      this.renderItem(item);
+      this.renderItem(item,userID);
     });
   }
 
-  renderItem(item) {
-    this._renderer(item);
+  renderItem(item,userID) {
+    this._renderer(item,userID);
+    // this._items.push(item);
   }
 
   addItem(item) {
     this._holder.prepend(item);
+  }
+
+  getItems(){
+    return this._items;
   }
 }

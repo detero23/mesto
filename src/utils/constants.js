@@ -24,5 +24,6 @@ export const cardNames = {
   heartSelector: ".element__heart-icon",
   heartClass: "element__heart-icon_active",
   recycleSelector: ".element__recycle",
+  inactiveRecycleClass: "element__recycle_disabled",
   likesSelector: ".element__like-count"
 };

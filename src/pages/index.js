@@ -12,6 +12,7 @@ import { FormValidator } from "../components/FormValidator.js";
 import { Section } from "../components/Section.js";
 import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
+import { PopupWithConfirmation } from "../components/PopupWithConfirmation.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { Api } from "../components/Api";
 
@@ -20,6 +21,19 @@ const buttonAdd = document.querySelector(".profile__add-button");
 
 const user = new UserInfo(userInfoNames);
 const api = new Api();
+
+// let userID = {}
+// api
+//   .getUserInfo()
+//   .then((result) => {
+//     // console.lof(result)
+//     userID.id = result._id;
+//     userID.cohort = result.cohort;
+//     console.log(userID.id);
+//   })
+//   .catch((err) => {
+//     console.error(`ИД пользователя - ошибка ${err.status}`);
+//   });
 
 const formValidators = {};
 
@@ -36,11 +50,13 @@ enableValidation(validationNames);
 
 const cardsSection = new Section(
   {
-    renderer: (card) => {
+    renderer: (card, userID) => {
       const cardElement = new Card(
         cardNames,
         card,
-        handleCardClick
+        userID,
+        handleCardClick,
+        handleDeleteClick
       ).generateCard();
       cardsSection.addItem(cardElement);
     },
@@ -48,24 +64,35 @@ const cardsSection = new Section(
   cardHolderSelector
 );
 
-api
-  .getUserInfo()
-  .then((result) => {
-    user.setUserInfo(result.name, result.about);
-    user.setAvatar(result.avatar);
-  })
-  .catch((err) => {
-    console.error(`Инфо пользователя - ошибка ${err.status}`);
-  });
+function setUserInfo() {
+  api
+    .getUserInfo()
+    .then((result) => {
+      user.setUserInfo(result.name, result.about);
+      user.setAvatar(result.avatar);
+      setInitialCards(result._id);
+    })
+    .catch((err) => {
+      console.error(`Инфо пользователя - ошибка ${err.status}`);
+    });
+}
+setUserInfo();
 
-api
-  .getInitialCards()
-  .then((result) => {
-    cardsSection.renderInitial(result); //Добавить проверку на 404 если одна из карт косячная
-  })
-  .catch((err) => {
-    console.error(`Инициализация карточек - ошибка ${err.status}`);
-  });
+function setInitialCards(userID) {
+  api
+    // .getUserInfo()
+    // .then((result) => {
+    //   userID.id = result._id;
+    //   userID.cohort = result.cohort;
+    // })
+    .getInitialCards()
+    .then((result) => {
+      cardsSection.renderInitial(result, userID); //Добавить проверку на то загруженна ли карточка
+    })
+    .catch((err) => {
+      console.error(`Инициализация карточек - ошибка ${err.status}`);
+    });
+}
 
 const editPopup = new PopupWithForm(".popup_type_edit", (inputs) => {
   api
@@ -94,6 +121,19 @@ const addPopup = new PopupWithForm(".popup_type_add", (inputs) => {
 });
 addPopup.setEventListeners();
 
+// const deletePopup = new PopupWithConfirmation(".popup_type_delete", (id) => {
+// api
+// .deleteCard({id: id})
+// .then(() => {
+//   console.log(`Card ${id} deleted`);
+// cardsSection.getItems().forEach((item) => console.log(item));
+// })
+// .catch((err) => {
+// console.error(`Удаление карточки ${id}- ошибка ${err.status}`);
+// });
+// });
+// deletePopup.setEventListeners();
+
 const imgPopup = new PopupWithImage(".popup_type_image");
 imgPopup.setEventListeners();
 
@@ -116,4 +156,8 @@ buttonAdd.addEventListener("click", () => {
 
 function handleCardClick(name, link) {
   imgPopup.open(name, link);
+}
+
+function handleDeleteClick(id) {
+  deletePopup.open(id);
 }

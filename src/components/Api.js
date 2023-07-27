@@ -20,6 +20,10 @@ export class Api {
     return this._post("/cards", { name: name, link: link });
   }
 
+  deleteCard ({id}) {
+    return this._delete(`/cards/${id}`);
+  }
+
   _get(queryParams) {
     return fetch(this._baseUrl + queryParams, {
       method: "GET",
@@ -56,6 +60,21 @@ export class Api {
       headers: {
         authorization: this._token,
         "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res);
+    });
+  }
+
+  _delete(queryParams, body) {
+    return fetch(this._baseUrl + queryParams, {
+      method: "DELETE",
+      headers: {
+        authorization: this._token
       },
       body: JSON.stringify(body),
     }).then((res) => {
