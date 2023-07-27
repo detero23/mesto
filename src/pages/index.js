@@ -22,6 +22,7 @@ const buttonAdd = document.querySelector(".profile__add-button");
 const user = new UserInfo(userInfoNames);
 const api = new Api();
 let userID = "";
+let curCardID = "";
 
 const formValidators = {};
 
@@ -46,7 +47,7 @@ const cardsSection = new Section(
         handleCardClick,
         handleDeleteClick
       ).generateCard();
-      cardsSection.addItem(cardElement);
+      cardsSection.addItem(cardElement, card._id);
     },
   },
   cardHolderSelector
@@ -58,7 +59,7 @@ function setUserInfo() {
     .then((result) => {
       user.setUserInfo(result.name, result.about);
       user.setAvatar(result.avatar);
-      setInitialCards(result._id);
+      setInitialCards();
       userID = result._id;
     })
     .catch((err) => {
@@ -69,11 +70,6 @@ setUserInfo();
 
 function setInitialCards() {
   api
-    // .getUserInfo()
-    // .then((result) => {
-    //   userID.id = result._id;
-    //   userID.cohort = result.cohort;
-    // })
     .getInitialCards()
     .then((result) => {
       cardsSection.renderInitial(result); //Добавить проверку на то загруженна ли карточка
@@ -107,18 +103,18 @@ const addPopup = new PopupWithForm(".popup_type_add", (inputs) => {
 });
 addPopup.setEventListeners();
 
-// const deletePopup = new PopupWithConfirmation(".popup_type_delete", (id) => {
-// api
-// .deleteCard({id: id})
-// .then(() => {
-//   console.log(`Card ${id} deleted`);
-// cardsSection.getItems().forEach((item) => console.log(item));
-// })
-// .catch((err) => {
-// console.error(`Удаление карточки ${id}- ошибка ${err.status}`);
-// });
-// });
-// deletePopup.setEventListeners();
+const deletePopup = new PopupWithConfirmation(".popup_type_delete", () => {
+  api
+    .deleteCard({ id: curCardID })
+    .then(() => {
+      console.log(`Card ${curCardID} deleted`);
+      cardsSection.deleteItem(curCardID);
+    })
+    .catch((err) => {
+      console.error(`Удаление карточки ${id}- ошибка ${err.status}`);
+    });
+});
+deletePopup.setEventListeners();
 
 const imgPopup = new PopupWithImage(".popup_type_image");
 imgPopup.setEventListeners();
@@ -145,5 +141,6 @@ function handleCardClick(name, link) {
 }
 
 function handleDeleteClick(id) {
-  deletePopup.open(id);
+  curCardID = id;
+  deletePopup.open();
 }
