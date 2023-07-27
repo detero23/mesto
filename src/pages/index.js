@@ -71,7 +71,7 @@ setUserInfo();
 
 function setInitialCards() {
   api
-    .getInitialCards()
+    .getCards()
     .then((result) => {
       cardsSection.renderInitial(result); //Добавить проверку на то загруженна ли карточка
     })
@@ -146,13 +146,14 @@ function handleDeleteClick(id) {
   deletePopup.open();
 }
 
-function handleLikeClick(cardData, toggleFunction, isLiked) {
+function handleLikeClick(cardData, toggleLike, updateLikes, isLiked) {
   if (isLiked) {
     api
       .deleteCardLike({ id: cardData._id })
       .then(() => {
         console.log(`Card ${cardData._id} disliked`);
-        toggleFunction();
+        toggleLike();
+        updateCardLikes(cardData._id, updateLikes);
       })
       .catch((err) => {
         console.error(`Лайк карточки ${cardData}- ошибка ${err.status}`);
@@ -162,10 +163,25 @@ function handleLikeClick(cardData, toggleFunction, isLiked) {
       .putCardLike({ id: cardData._id })
       .then(() => {
         console.log(`Card ${cardData._id} liked`);
-        toggleFunction();
+        toggleLike();
+        updateCardLikes(cardData._id, updateLikes);
       })
       .catch((err) => {
-        console.error(`Лайк карточки ${cardData}- ошибка ${err.status}`);
+        console.error(`Дизлайк карточки ${cardData}- ошибка ${err.status}`);
       });
   }
+}
+
+function updateCardLikes(cardID, updateLike) {
+  api
+    .getCards()
+    .then((result) => {
+      const filteredRes = result.filter((obj) => obj._id == cardID);
+      updateLike(filteredRes[0].likes.length);
+    })
+    .catch((err) => {
+      console.error(
+        `Получение лайков карточки ${cardID}- ошибка ${err.status}`
+      );
+    });
 }

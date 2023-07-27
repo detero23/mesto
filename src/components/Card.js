@@ -1,5 +1,12 @@
 export class Card {
-  constructor(cardSelectors, cardData, userID, handleCardClick, handleDeleteClick, handleLikeClick) {
+  constructor(
+    cardSelectors,
+    cardData,
+    userID,
+    handleCardClick,
+    handleDeleteClick,
+    handleLikeClick
+  ) {
     this._cardData = cardData;
     this._cardSelectors = cardSelectors;
     this._userID = userID;
@@ -37,12 +44,21 @@ export class Card {
   }
 
   _isLiked() {
-    return this._heart.classList.contains(this._heartClass) ? true:false;
+    return this._heart.classList.contains(this._heartClass) ? true : false;
+  }
+
+  _updateLikes(likes) {
+    this._likes.textContent = likes;
   }
 
   _addListeners() {
     this._heart.addEventListener("click", () => {
-      this._handleLikeClick(this._cardData, this._toggleLike.bind(this), this._isLiked())
+      this._handleLikeClick(
+        this._cardData,
+        this._toggleLike.bind(this),
+        this._updateLikes.bind(this),
+        this._isLiked()
+      );
     });
     this._recycle.addEventListener("click", () => {
       this._handleDeleteClick(this._cardData._id);
@@ -53,9 +69,17 @@ export class Card {
   }
 
   _disableNotUsersRecycle() {
-    this._userID == this._cardData.owner._id ? "" : this._recycle.classList.add(this._inactiveRecycle);
+    this._userID == this._cardData.owner._id
+      ? ""
+      : this._recycle.classList.add(this._inactiveRecycle);
   }
 
+  _checkLike() {
+    const filteredLikes = this._cardData.likes.filter(
+      (obj) => obj._id == this._userID
+    );
+    filteredLikes.length == 0 ? "" : this._toggleLike();
+  }
 
   generateCard() {
     this._image.src = this._cardData.link;
@@ -65,6 +89,7 @@ export class Card {
 
     this._addListeners();
     this._disableNotUsersRecycle();
+    this._checkLike();
 
     return this._template;
   }

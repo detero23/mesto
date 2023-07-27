@@ -4,7 +4,7 @@ export class Api {
     this._token = "608e65cd-5c46-46a5-8324-f79e68e34120";
   }
 
-  getInitialCards() {
+  getCards() {
     return this._get("/cards");
   }
 
@@ -20,12 +20,16 @@ export class Api {
     return this._post("/cards", { name: name, link: link });
   }
 
+  getCardLikes ({id}) {
+    return this._get(`/cards/${id}/likes`);
+  }
+
   putCardLike({ id }) {
     return this._put(`/cards/${id}/likes`);
   }
 
   deleteCardLike({ id }) {
-    return this._put(`/cards/${id}/likes`);
+    return this._delete(`/cards/${id}/likes`);
   }
 
   deleteCard({ id }) {
