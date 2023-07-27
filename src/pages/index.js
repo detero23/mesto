@@ -21,19 +21,7 @@ const buttonAdd = document.querySelector(".profile__add-button");
 
 const user = new UserInfo(userInfoNames);
 const api = new Api();
-
-// let userID = {}
-// api
-//   .getUserInfo()
-//   .then((result) => {
-//     // console.lof(result)
-//     userID.id = result._id;
-//     userID.cohort = result.cohort;
-//     console.log(userID.id);
-//   })
-//   .catch((err) => {
-//     console.error(`ИД пользователя - ошибка ${err.status}`);
-//   });
+let userID = "";
 
 const formValidators = {};
 
@@ -71,6 +59,7 @@ function setUserInfo() {
       user.setUserInfo(result.name, result.about);
       user.setAvatar(result.avatar);
       setInitialCards(result._id);
+      userID = result._id;
     })
     .catch((err) => {
       console.error(`Инфо пользователя - ошибка ${err.status}`);
@@ -110,10 +99,13 @@ const addPopup = new PopupWithForm(".popup_type_add", (inputs) => {
   api
     .postCard({ name: inputs.inputAddName, link: inputs.inputAddRef })
     .then(() => {
-      cardsSection.renderItem({
-        name: inputs.inputAddName,
-        link: inputs.inputAddRef,
-      });
+      cardsSection.renderItem(
+        {
+          name: inputs.inputAddName,
+          link: inputs.inputAddRef,
+        },
+        userID
+      );
     })
     .catch((err) => {
       console.error(`Добавление новой карточки - ошибка ${err.status}`);

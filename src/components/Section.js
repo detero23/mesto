@@ -3,7 +3,7 @@ export class Section {
     this._renderer = renderer;
 
     this._holder = document.querySelector(selector);
-    // this._items = [];
+    this._items = [];
   }
 
   renderInitial(items,userID) {
@@ -14,11 +14,11 @@ export class Section {
 
   renderItem(item,userID) {
     this._renderer(item,userID);
-    // this._items.push(item);
   }
 
   addItem(item) {
     this._holder.prepend(item);
+    this._items.push(item);
   }
 
   getItems(){
