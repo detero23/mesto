@@ -18,6 +18,7 @@ import { Api } from "../components/Api";
 
 const buttonEdit = document.querySelector(".profile__edit-button");
 const buttonAdd = document.querySelector(".profile__add-button");
+const avatarImage = document.querySelector(".profile__avatar");
 
 const user = new UserInfo(userInfoNames);
 const api = new Api();
@@ -73,7 +74,7 @@ function setInitialCards() {
   api
     .getCards()
     .then((result) => {
-      cardsSection.renderInitial(result); //Добавить проверку на то загруженна ли карточка
+      cardsSection.renderInitial(result);
     })
     .catch((err) => {
       console.error(`Инициализация карточек - ошибка ${err.status}`);
@@ -96,13 +97,26 @@ const addPopup = new PopupWithForm(".popup_type_add", (inputs) => {
   api
     .postCard({ name: inputs.inputAddName, link: inputs.inputAddRef })
     .then((result) => {
-      cardsSection.renderItem(result); //Добавить проверку на то загруженна ли карточка
+      cardsSection.renderItem(result);
     })
     .catch((err) => {
       console.error(`Добавление новой карточки - ошибка ${err.status}`);
     });
 });
 addPopup.setEventListeners();
+
+const avatarPopup = new PopupWithForm(".popup_type_avatar", (inputs) => {
+  console.log('колбек')
+  api
+    .patchUserAvatar({ link: inputs.inputAvatarRef })
+    .then(() => {
+      user.setAvatar(inputs.inputAvatarRef);
+    })
+    .catch((err) => {
+      console.error(`Обновление аватара - ошибка ${err.status}`);
+    });
+});
+avatarPopup.setEventListeners();
 
 const deletePopup = new PopupWithConfirmation(".popup_type_delete", () => {
   api
@@ -135,6 +149,12 @@ buttonAdd.addEventListener("click", () => {
   formValidators[addPopup.getForm().getAttribute("name")].resetValidation();
   formValidators[addPopup.getForm().getAttribute("name")].disableButton();
   addPopup.open();
+});
+avatarImage.addEventListener("click", () => {
+  avatarPopup.resetForm();
+  formValidators[avatarPopup.getForm().getAttribute("name")].resetValidation();
+  formValidators[avatarPopup.getForm().getAttribute("name")].disableButton();
+  avatarPopup.open();
 });
 
 function handleCardClick(name, link) {

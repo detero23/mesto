@@ -16,6 +16,10 @@ export class Api {
     return this._patch("/users/me", { name: name, about: about });
   }
 
+  patchUserAvatar ({link}) {
+    return this._patch("/users/me/avatar", { avatar: link });
+  }
+
   postCard({ name, link }) {
     return this._post("/cards", { name: name, link: link });
   }
