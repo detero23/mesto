@@ -4,7 +4,7 @@ export class Api {
     this._token = "608e65cd-5c46-46a5-8324-f79e68e34120";
   }
 
-  getInitialCards() {
+  getCards() {
     return this._get("/cards");
   }
 
@@ -16,11 +16,27 @@ export class Api {
     return this._patch("/users/me", { name: name, about: about });
   }
 
+  patchUserAvatar ({link}) {
+    return this._patch("/users/me/avatar", { avatar: link });
+  }
+
   postCard({ name, link }) {
     return this._post("/cards", { name: name, link: link });
   }
 
-  deleteCard ({id}) {
+  getCardLikes ({id}) {
+    return this._get(`/cards/${id}/likes`);
+  }
+
+  putCardLike({ id }) {
+    return this._put(`/cards/${id}/likes`);
+  }
+
+  deleteCardLike({ id }) {
+    return this._delete(`/cards/${id}/likes`);
+  }
+
+  deleteCard({ id }) {
     return this._delete(`/cards/${id}`);
   }
 
@@ -70,13 +86,26 @@ export class Api {
     });
   }
 
-  _delete(queryParams, body) {
+  _put(queryParams) {
+    return fetch(this._baseUrl + queryParams, {
+      method: "PUT",
+      headers: {
+        authorization: this._token,
+      },
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(res);
+    });
+  }
+
+  _delete(queryParams) {
     return fetch(this._baseUrl + queryParams, {
       method: "DELETE",
       headers: {
-        authorization: this._token
+        authorization: this._token,
       },
-      body: JSON.stringify(body),
     }).then((res) => {
       if (res.ok) {
         return res.json();

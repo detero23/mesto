@@ -7,3 +7,12 @@
   mask-image: radial-gradient(black 60px, transparent 60px);
   -webkit-mask-image: radial-gradient(black 60px, transparent 60px);
 }
+
+.profile__avatar:hover {
+  opacity: 0.2;
+  cursor: pointer;
+}
+
+.profile__avatar:hover ~ .profile__edit-icon {
+  visibility: visible;
+}

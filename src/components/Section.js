@@ -1,9 +1,9 @@
 export class Section {
-    constructor({ renderer }, selector) {
+  constructor({ renderer }, selector) {
     this._renderer = renderer;
 
     this._holder = document.querySelector(selector);
-    this._items = [];
+    this._items = {};
   }
 
   renderInitial(items) {
@@ -16,12 +16,17 @@ export class Section {
     this._renderer(item);
   }
 
-  addItem(item) {
+  addItem(item, cardID) {
     this._holder.prepend(item);
-    this._items.push(item);
+    this._items[cardID] = item;
   }
 
-  getItems(){
+  getItems() {
     return this._items;
+  }
+
+  deleteItem(itemID) {
+    this._items[itemID].remove();
+    delete this._items[itemID];
   }
 }
