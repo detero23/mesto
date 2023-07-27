@@ -82,10 +82,12 @@ function setInitialCards() {
 }
 
 const editPopup = new PopupWithForm(".popup_type_edit", (inputs) => {
+  editPopup.setTempBtnState();
   api
     .patchUserInfo({ name: inputs.inputEditName, about: inputs.inputEditJob })
     .then(() => {
       user.setUserInfo(inputs.inputEditName, inputs.inputEditJob);
+      editPopup.setInitialBtnState();
     })
     .catch((err) => {
       console.error(`Обновление инфо пользователя - ошибка ${err.status}`);
@@ -94,10 +96,12 @@ const editPopup = new PopupWithForm(".popup_type_edit", (inputs) => {
 editPopup.setEventListeners();
 
 const addPopup = new PopupWithForm(".popup_type_add", (inputs) => {
+  addPopup.setTempBtnState();
   api
     .postCard({ name: inputs.inputAddName, link: inputs.inputAddRef })
     .then((result) => {
       cardsSection.renderItem(result);
+      addPopup.setInitialBtnState();
     })
     .catch((err) => {
       console.error(`Добавление новой карточки - ошибка ${err.status}`);
@@ -106,11 +110,12 @@ const addPopup = new PopupWithForm(".popup_type_add", (inputs) => {
 addPopup.setEventListeners();
 
 const avatarPopup = new PopupWithForm(".popup_type_avatar", (inputs) => {
-  console.log('колбек')
+  avatarPopup.setTempBtnState();
   api
     .patchUserAvatar({ link: inputs.inputAvatarRef })
     .then(() => {
       user.setAvatar(inputs.inputAvatarRef);
+      avatarPopup.setInitialBtnState();
     })
     .catch((err) => {
       console.error(`Обновление аватара - ошибка ${err.status}`);
