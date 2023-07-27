@@ -45,7 +45,8 @@ const cardsSection = new Section(
         card,
         userID,
         handleCardClick,
-        handleDeleteClick
+        handleDeleteClick,
+        handleLikeClick
       ).generateCard();
       cardsSection.addItem(cardElement, card._id);
     },
@@ -143,4 +144,28 @@ function handleCardClick(name, link) {
 function handleDeleteClick(id) {
   curCardID = id;
   deletePopup.open();
+}
+
+function handleLikeClick(cardData, toggleFunction, isLiked) {
+  if (isLiked) {
+    api
+      .deleteCardLike({ id: cardData._id })
+      .then(() => {
+        console.log(`Card ${cardData._id} disliked`);
+        toggleFunction();
+      })
+      .catch((err) => {
+        console.error(`Лайк карточки ${cardData}- ошибка ${err.status}`);
+      });
+  } else {
+    api
+      .putCardLike({ id: cardData._id })
+      .then(() => {
+        console.log(`Card ${cardData._id} liked`);
+        toggleFunction();
+      })
+      .catch((err) => {
+        console.error(`Лайк карточки ${cardData}- ошибка ${err.status}`);
+      });
+  }
 }
