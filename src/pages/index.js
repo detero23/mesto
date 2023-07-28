@@ -82,15 +82,10 @@ function setInitialCards() {
 }
 
 const editPopup = new PopupWithForm(".popup_type_edit", (inputs) => {
-  editPopup.setTempBtnState();
-  api
+  return api
     .patchUserInfo({ name: inputs.inputEditName, about: inputs.inputEditJob })
     .then(() => {
       user.setUserInfo(inputs.inputEditName, inputs.inputEditJob);
-    })
-    .finally(() => {
-      editPopup.setInitialBtnState();
-      editPopup.close();
     })
     .catch((err) => {
       console.error(`Обновление инфо пользователя - ошибка ${err.status}`);
@@ -99,15 +94,10 @@ const editPopup = new PopupWithForm(".popup_type_edit", (inputs) => {
 editPopup.setEventListeners();
 
 const addPopup = new PopupWithForm(".popup_type_add", (inputs) => {
-  addPopup.setTempBtnState();
-  api
+  return api
     .postCard({ name: inputs.inputAddName, link: inputs.inputAddRef })
     .then((result) => {
       cardsSection.renderItem(result);
-    })
-    .finally(() => {
-      addPopup.setInitialBtnState();
-      addPopup.close();
     })
     .catch((err) => {
       console.error(`Добавление новой карточки - ошибка ${err.status}`);
@@ -116,15 +106,10 @@ const addPopup = new PopupWithForm(".popup_type_add", (inputs) => {
 addPopup.setEventListeners();
 
 const avatarPopup = new PopupWithForm(".popup_type_avatar", (inputs) => {
-  avatarPopup.setTempBtnState();
-  api
+  return api
     .patchUserAvatar({ link: inputs.inputAvatarRef })
     .then(() => {
       user.setAvatar(inputs.inputAvatarRef);
-    })
-    .finally(() => {
-      avatarPopup.setInitialBtnState();
-      avatarPopup.close();
     })
     .catch((err) => {
       console.error(`Обновление аватара - ошибка ${err.status}`);
@@ -133,16 +118,11 @@ const avatarPopup = new PopupWithForm(".popup_type_avatar", (inputs) => {
 avatarPopup.setEventListeners();
 
 const deletePopup = new PopupWithConfirmation(".popup_type_delete", () => {
-  deletePopup.setTempBtnState();
-  api
+  return api
     .deleteCard({ id: curCardID })
     .then(() => {
       console.log(`Card ${curCardID} deleted`);
       cardsSection.deleteItem(curCardID);
-    })
-    .finally(() => {
-      deletePopup.setInitialBtnState();
-      deletePopup.close();
     })
     .catch((err) => {
       console.error(`Удаление карточки ${id}- ошибка ${err.status}`);

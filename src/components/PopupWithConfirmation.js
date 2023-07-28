@@ -7,8 +7,6 @@ export class PopupWithConfirmation extends Popup {
 
     this._form = this._popup.querySelector(".popup__form");
     this._submitBtn = this._popup.querySelector(".popup__save-button");
-    this._initialBtnValue = this._submitBtn.value;
-    this._tempBtnValue = 'Удаление...';
   }
 
   close() {
@@ -27,9 +25,16 @@ export class PopupWithConfirmation extends Popup {
   setEventListeners() {
     super.setEventListeners();
 
+    const initialBtnValue = this._submitBtn.value;
+
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._submitCallback();
+      this._submitBtn.value = "Удаление...";
+      this._submitCallback()
+        .then(() => this.close())
+        .finally(() => {
+          this._submitBtn.value = initialBtnValue;
+        });
     });
   }
 
