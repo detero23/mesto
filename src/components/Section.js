@@ -7,7 +7,7 @@ export class Section {
   }
 
   renderInitial(items) {
-    items.forEach((item) => {
+    items.reverse().forEach((item) => {
       this.renderItem(item);
     });
   }

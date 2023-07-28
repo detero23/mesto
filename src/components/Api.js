@@ -16,7 +16,7 @@ export class Api {
     return this._patch("/users/me", { name: name, about: about });
   }
 
-  patchUserAvatar ({link}) {
+  patchUserAvatar({ link }) {
     return this._patch("/users/me/avatar", { avatar: link });
   }
 
@@ -24,7 +24,7 @@ export class Api {
     return this._post("/cards", { name: name, link: link });
   }
 
-  getCardLikes ({id}) {
+  getCardLikes({ id }) {
     return this._get(`/cards/${id}/likes`);
   }
 
@@ -46,12 +46,7 @@ export class Api {
       headers: {
         authorization: this._token,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res);
-    });
+    }).then(this._checkResponse);
   }
 
   _patch(queryParams, body) {
@@ -62,12 +57,7 @@ export class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res);
-    });
+    }).then(this._checkResponse);
   }
 
   _post(queryParams, body) {
@@ -78,12 +68,7 @@ export class Api {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res);
-    });
+    }).then(this._checkResponse);
   }
 
   _put(queryParams) {
@@ -92,12 +77,7 @@ export class Api {
       headers: {
         authorization: this._token,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res);
-    });
+    }).then(this._checkResponse);
   }
 
   _delete(queryParams) {
@@ -106,11 +86,13 @@ export class Api {
       headers: {
         authorization: this._token,
       },
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(res);
-    });
+    }).then(this._checkResponse);
+  }
+
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res);
   }
 }

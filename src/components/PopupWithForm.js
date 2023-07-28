@@ -9,8 +9,6 @@ export class PopupWithForm extends Popup {
     this._inputs = Array.from(this._form.querySelectorAll(".popup__input"));
 
     this._submitBtn = this._popup.querySelector(".popup__save-button");
-    this._initialBtnValue = this._submitBtn.value;
-    this._tempBtnValue = 'Сохранение...';
   }
 
   _getInputValues() {
@@ -30,10 +28,16 @@ export class PopupWithForm extends Popup {
   setEventListeners() {
     super.setEventListeners();
 
+    const initialBtnValue = this._submitBtn.value;
+
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      this._submitCallback(this._getInputValues());
-      this.close();
+      this._submitBtn.value = "Сохранение...";
+      this._submitCallback(this._getInputValues())
+        .then(() => this.close())
+        .finally(() => {
+          this._submitBtn.value = initialBtnValue;
+        });
     });
   }
 
